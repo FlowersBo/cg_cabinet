@@ -1,0 +1,31 @@
+<!--pages/destination/index.wxml-->
+<!-- <cu-custom bgColor="bg-gradual-orange"> 
+	<view slot="content">智能充电柜</view>
+</cu-custom> -->
+<view class="destinationWrap">
+  <view class="destination">
+    <view class="userInfo">
+      <view class="userinfo-avatar">
+        <open-data type="userAvatarUrl" class="userAvatarUrl"></open-data>
+      </view>
+      <open-data type="userNickName" class="userNickName"></open-data>
+    </view>
+    <view class="btnNavWrap">
+      <view class="nearby">
+        <view class="iconWrap" bindtap="nearbyMapFun">
+          <image class="img" src="../../resource/img/nearby1.png"></image>
+        </view>
+        <view class="nearby_text">附近存包柜</view>
+      </view>
+      <view class="qrCade" bindtap="qrCordFn">
+        <image class="img" src="../../resource/img/QRcode.png"></image>
+      </view>
+      <view class="nearby">
+        <view class="iconWrap order" bindtap="orderFun">
+          <image class="img" src="../../resource/img/order.png"></image>
+        </view>
+        <view class="nearby_text order_text">历史订单</view>
+      </view>
+    </view>
+  </view>
+</view>

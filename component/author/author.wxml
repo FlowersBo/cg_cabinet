@@ -1,0 +1,23 @@
+<!--component/author/author.wxml-->
+
+<!-- 未登录情况下拉起授权登录按钮 -->
+<view class="authorWrap">
+  <view class="author">
+    <view class="iconWrap">
+      <view class="author_icon" bindtap="offBtn">X</view>
+    </view>
+    <view class="imgWrap">
+      <image class='author_img' src='/resource/img/xyz.png'></image>
+      <view class="textWrap">
+        <view class="text_item">授权后</view>
+        <view class="text_item">可使用更多功能</view>
+      </view>
+    </view>
+    <button class='author_btn' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" lang='zh_CN'>确认授权</button>
+     <!-- wx:if="{{!isAuthor}}" -->
+  </view>
+</view>
+
+<!-- 已登陆继续执行 -->
+
+<!-- <button class='author_btn' bindtap='goOn' wx:else></button> -->

@@ -1,0 +1,107 @@
+/**app.wxss**/
+@import "/colorui/main.wxss";
+@import "/colorui/icon.wxss";
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0rpx 0;
+  box-sizing: border-box;
+} 
+.fzcontainer{
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20rpx;
+}
+/* 按钮及容器 */
+.btnbox{
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  text-align: center;
+  padding-top: 30rpx;
+}
+
+.btndefault{
+  display: inline-block;
+  min-width: 160rpx;
+  height: 70rpx;
+  background: #e2e2e2;
+  border:none;
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 70rpx;
+  margin-right: 20rpx;
+  padding: 0 16rpx;
+}
+.bntconfirm{
+  display: inline-block;
+  min-width: 160rpx;
+  height: 70rpx;
+  background: orange;
+  border:none;
+  font-size: 28rpx;
+  color: #ffffff;
+  line-height: 70rpx;
+  padding: 0 16rpx;
+}
+
+@font-face {
+  font-family: 'iconfont';  /* project id 2054761 */
+  src: url('//at.alicdn.com/t/font_2054761_lmm5kpvqjw8.eot');
+  src: url('//at.alicdn.com/t/font_2054761_lmm5kpvqjw8.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2054761_lmm5kpvqjw8.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2054761_lmm5kpvqjw8.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2054761_lmm5kpvqjw8.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2054761_lmm5kpvqjw8.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconloding:before {
+  content: "\e612";
+}
+
+.iconfujin:before {
+  content: "\e614";
+}
+
+.icondaohang:before {
+  content: "\e68e";
+}
+
+.icondaohang1:before {
+  content: "\e646";
+}
+
+.iconyingyeshijian:before {
+  content: "\e6e0";
+}
+
+.iconlishidingdan:before {
+  content: "\e656";
+}
+
+.iconcunbao:before {
+  content: "\e668";
+}
+
+.iconsaoma:before {
+  content: "\e60b";
+}
+
+.iconyuyuecunbaogui:before {
+  content: "\e605";
+}
+
+.iconperson-right:before {
+  content: "\e607";
+}

@@ -1,0 +1,28 @@
+<!--pages/wxPay/index.wxml-->
+<cu-custom bgColor="bg-user-color" isCustomHome="true" class="custom">
+  <view slot="content">授权免密支付</view>
+</cu-custom>
+
+<view class="wxPayWrap">
+  <view class="wxPay">
+    <view class=""></view>
+    <button class="bottom" bindtap="wxPayFn">确认授权</button>
+  </view>
+
+  <view class="liabilityWrap">
+    <view class="liability" bindtap="liabilityFun">服务协议</view>
+  </view>
+</view>
+
+
+
+
+
+
+
+<!-- <view class='btn_box'>
+  <navigator target='miniProgram' extra-data='{{extraData}}' path='pages/index/index' app-id='wxf3f81a0729754e2f'
+    hover-class="none">
+    <view class='btn_btn nor_linear_bg'>开通免密支付</view>
+  </navigator>
+</view> -->

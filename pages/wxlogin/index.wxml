@@ -1,0 +1,35 @@
+<!--pages/wxlogin/index.wxml-->
+<cu-custom bgColor="bg-user-color" isBack="true">
+  <view slot="backText">返回</view>
+  <view slot="content">授权手机号</view>
+</cu-custom>
+<view class='wxloginWrap'>
+  <view class='wxLogin'>
+    <view class='header'>
+      <image class='headerImage' src='/resource/img/user_img.png'></image>
+      <view class="logoName"></view>
+    </view>
+    <!-- <view style="width:100%;height:400rpx;background:gray;">
+      <official-account style=""></official-account>
+    </view> -->
+
+    <view class='wxLogin-text'>
+      <text class="text_top">申请获取以下权限</text>
+      <text class="text_bottom">获取你微信绑定手机号</text>
+    </view>
+    <button class='bottom' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" lang="zh_CN">授权手机号登录</button>
+
+    <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+      <view class="cu-dialog">
+        <view class="cu-bar bg-white">
+          <button class="btn text-green" bindtap="authorizationFn">允许</button>
+          <button class="btn text-blue" bindtap="hideModal">拒绝</button>
+        </view>
+        <view class="authorization-remind">
+          需要您授权微信消息订阅功能以便发送解锁码，如不授权将无法获取解锁码，您也可以人脸识别解锁或在触控屏幕上再次获取解锁码。
+        </view>
+      </view>
+    </view>
+    <!-- <button class='bottom' open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGotUserInfo">授权登录</button> -->
+  </view>
+</view>

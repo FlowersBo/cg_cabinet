@@ -1,0 +1,71 @@
+/* pages/orderList/index.wxss */
+page{
+  height: 100%;
+}
+
+.orderListWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orderList {
+  width: 97%;
+  height: 400rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+/* .orderList:last-child{
+  margin-bottom: 30rpx;
+} */
+.order {
+  width: 100%;
+  height: 100%;
+  padding: 10rpx;
+  /* font-size: 32rpx; */
+}
+
+.order_title {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 10rpx;
+  border-bottom: 1rpx solid #EAEAEA;
+  font-size: 36rpx;
+}
+
+.order_status {
+  color: rgb(165, 207, 10);
+}
+
+.order_money {
+  color: rgb(247, 3, 3);
+}
+
+.order_content {
+  width: 100%;
+  height: 290rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.order_detail {
+  display: flex;
+  justify-content: left;
+}
+.detail_name{
+  width: 160rpx;
+}
+.detail_content {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}

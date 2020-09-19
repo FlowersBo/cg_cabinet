@@ -1,0 +1,45 @@
+<!--pages/orderList/index.wxml-->
+<cu-custom bgColor="bg-user-color" isBack="true" class="custom">
+  <view slot="backText">返回</view>
+  <view slot="content">历史订单</view>
+</cu-custom>
+<scroll-y class="scroll-view" pull="{{pull}}" push="{{push}}" listLength="{{clueData.length}}"
+style="position: absolute;top: {{2*customHeight}}rpx;bottom: 0;width: 100%;flex: 1;"
+ bindrefresh="refresh" bindtoload="toload">
+  <view class="orderListWrap">
+    <block wx:for="{{orderList}}" wx:key="index">
+      <view class="orderList" data-id="{{item.id}}" bindtap="clickOrder">
+        <view class="order">
+          <view class="order_title">
+            <view class="order_status">{{item.orderStatus}}</view>
+            <view class="order_money" wx:if="{{item.orderStatus=='2'}}">￥{{item.orderPrice}}</view>
+          </view>
+          <view class="order_content">
+            <view class="order_detail">
+              <view class="detail_name">订单编号：</view>
+              <view class="detail_content">{{item.orderNo}}</view>
+            </view>
+            <view class="order_detail">
+              <view class="detail_name">存包地点：</view>
+              <view class="detail_content">{{item.pointName}}</view>
+            </view>
+            <view class="order_detail">
+              <view class="detail_name">起始时间：</view>
+              <view class="detail_content">{{item.createDate}}</view>
+            </view>
+            <block wx:if="{{item.orderStatus=='2'}}">
+              <view class="order_detail">
+                <view class="detail_name">结束时间：</view>
+                <view class="detail_content">{{item.updateDate}}</view>
+              </view>
+              <view class="order_detail">
+                <view class="detail_name">使用时长：</view>
+                <view class="detail_content">{{item.orderStatus}}</view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</scroll-y>

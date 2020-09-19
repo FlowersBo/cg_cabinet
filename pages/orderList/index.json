@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "scroll-y": "/component/scroll-y/index"
+    },
+  "enablePullDownRefresh": false,
+  "backgroundTextStyle": "dark"
+}
