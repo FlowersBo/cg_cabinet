@@ -25,7 +25,7 @@ Page({
     let result = options.q;
     if (result) {
       let path = decodeURIComponent(result);
-      console.log(path)
+      console.log('解码',path);
       const pathPart = path.split('vd/')[1].split('|');
       console.log(pathPart);
       wx.setStorageSync('pathPart', pathPart);
