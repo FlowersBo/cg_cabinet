@@ -1,14 +1,15 @@
 {
   "pages": [
+    "pages/destination/index",
     "pages/wxPay/index",
     "pages/wxlogin/index",
+    "pages/bagClaim/index",
+    "pages/cs/index",
     "pages/orderList/index",
-    "pages/destination/index",
     "pages/nearbyMap/index",
     "pages/mapNavigation/index",
     "pages/index/index"
   ],
-  
   "window": {
     "navigationBarBackgroundColor": "#FDE50D",
     "navigationBarTitleText": "智能充电柜",

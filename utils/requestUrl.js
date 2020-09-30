@@ -107,7 +107,9 @@ function login() {
 
 function objectToJsonParams(data = {}) {
   var arr = Object.keys(data);
-  if (arr === 0) {
+  console.log(arr)
+  // if (arr === 0) {
+  if (arr.length === 0) {
     return '';
   } else {
     let params = '?' + JSON.stringify(data).replace(/{/g, '').replace(/}/g, '').replace(/:/g, '=').replace(/\"/g, '').replace(/\,/g, '&');

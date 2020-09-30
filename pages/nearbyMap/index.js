@@ -11,6 +11,7 @@ Page({
     orderList: [],
     current: '1',
     pageCount: 1,
+    isFlag: false,
     pull: {
       isLoading: false,
       loading: '../../resource/img/pull_refresh.gif',
@@ -37,7 +38,12 @@ Page({
     }).exec()
   },
   onShow: function () {
+    that.setData({
+      current: '1',
+      orderList: []
+    })
     that.getSelfLocation();
+    // that.mask = this.selectComponent('#mask');
   },
   //获取位置
   getSelfLocation: function (varSendOrgId) {
@@ -52,7 +58,6 @@ Page({
         that.orderListFn(that.data.current);
       },
       fail: function (res) {
-        // setTimeout(function () { //需要用户授权获取位置
         wx.getSetting({
           success: (res) => {
             if (!res.authSetting['scope.userLocation']) {
@@ -60,10 +65,17 @@ Page({
             }
           }
         })
-        // }, 1000);
       }
     });
   },
+
+  // mask组件返回的参数
+  // statusNumberFn:function(e){
+  //   console.log(e.detail.status);
+  //   this.setData({
+  //     status: e.detail.status
+  //   })
+  // },
 
   // 二次授权允许或拒绝
   gotobargainDetailFun: (e) => {
@@ -125,6 +137,9 @@ Page({
 
   // 订单列表
   orderListFn: (current) => {
+    that.setData({
+      isFlag: false
+    })
     let {
       latitude,
       longitude
@@ -137,15 +152,20 @@ Page({
     }
     mClient.wxRequest(api.Location, data)
       .then(res => {
-        console.log("列表", res);
+        console.log("返回列表", res);
         if (res.code == "0") {
           let orderList = res.data.pointList;
           orderList = that.data.orderList.concat(orderList);
-          console.log('修改后列表', orderList);
+          console.log('附近点位列表', orderList);
           if (orderList.length >= 10) {
             const pullText = '- 上拉加载更多 -'
             that.setData({
               'push.pullText': pullText,
+            })
+          }
+          if (orderList.length <= 0) {
+            that.setData({
+              isFlag: true
             })
           }
           that.setData({
@@ -158,6 +178,9 @@ Page({
             title: res.message,
             icon: 'none',
             duration: 1000
+          })
+          that.setData({
+            isFlag: true
           })
         }
       })

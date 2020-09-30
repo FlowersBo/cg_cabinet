@@ -1,16 +1,38 @@
 <!--pages/wxPay/index.wxml-->
 <cu-custom bgColor="bg-user-color" isCustomHome="true" class="custom">
-  <view slot="content">授权免密支付</view>
+  <view slot="content">确认存包</view>
 </cu-custom>
 
 <view class="wxPayWrap">
   <view class="wxPay">
-    <view class=""></view>
-    <button class="bottom" bindtap="wxPayFn">确认授权</button>
-  </view>
-
-  <view class="liabilityWrap">
-    <view class="liability" bindtap="liabilityFun">服务协议</view>
+    <view class="imgWrap">
+      <image src="../../resource/img/AIbackground.png"></image>
+      <view class="ruleWrap">
+        <view class="meatch">
+          <view class="meatchName">{{billing.standardName}}</view>
+          <view class="orderNumber">订单编号:{{billing.id}}</view>
+        </view>
+        <view class="rule">
+          <view class="time">
+            <text class="time_number">{{billing.timeoutPrice}}</text>元/小时
+          </view>
+          <view class="time">前{{billing.freeTime}}分钟免费</view>
+          <view class="time">{{billing.capPrice}}元封顶/天</view>
+          <view class="time">结束寄存后自动扣费</view>
+        </view>
+      </view>
+    </view>
+    <view class="liabilityWrap">
+      <checkbox-group bindchange="checkboxChange">
+        <checkbox class="blue" checked="{{checked}}"></checkbox>
+      </checkbox-group>
+      <view class="liability">勾选即同意</view>
+      <view class="liability" bindtap="liabilityFun">《委托扣款授权书》</view>
+    </view>
+    <button class="bottom" disabled="{{disabled}}" bindtap="wxPayFn">
+      <view>免押金存包</view>
+      <view class="chance">(微信支付分550分及以上有机会)</view>
+    </button>
   </view>
 </view>
 

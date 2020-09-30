@@ -19,9 +19,7 @@ Page({
   },
 
   qrCordFn: () => {
-    wx.navigateTo({
-      url: '/pages/wxlogin/index',
-    })
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -34,7 +32,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+   
   },
 
   //扫码
@@ -42,25 +40,17 @@ Page({
     wx.scanCode({
       success(res) {
         console.log("扫码", res)
-        var path = decodeURIComponent(res.path);
-        // var path = res.path;
+        var path = decodeURIComponent(res.result);
+        // var path = res.result;
         console.log(path)
-        // var pathPart1 = path.split('&');
-        // console.log(pathPart1)
-        // var pathPart = path.substring(0, path.lastIndexOf('='));
-        var pathPart = path.substring(0, 6);
-        console.log("截取后", pathPart);
-        if (path) {
-          if (pathPart == 'source') {
-            wx.navigateTo({
-              url: '/pages/merchant/verificationQRcode/index?' + path,
-            })
-          } else {
-            var memberCardId = res.path;
-            wx.navigateTo({
-              url: "/pages/merchant/verification/index?memberCardId=" + memberCardId
-            })
-          }
+        const pathPart = path.split('vd/')[1].split('|');
+        console.log(pathPart);
+        // var pathPart = path.substring(0, 6);
+        if (pathPart) {
+          wx.setStorageSync('pathPart', pathPart);
+          wx.navigateTo({
+            url: '/pages/wxlogin/index',
+          })
         } else {
           wx.showToast({
             title: '扫码失败',
@@ -105,7 +95,6 @@ Page({
     console.log("下拉刷新")
     // 显示顶部刷新图标  
     wx.showNavigationBarLoading();
-    that.onShow();
     // 停止下拉动作  
     wx.stopPullDownRefresh();
     if (that.data) {

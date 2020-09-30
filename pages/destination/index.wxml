@@ -17,7 +17,7 @@
         </view>
         <view class="nearby_text">附近存包柜</view>
       </view>
-      <view class="qrCade" bindtap="qrCordFn">
+      <view class="qrCade" bindtap="scanCode">
         <image class="img" src="../../resource/img/QRcode.png"></image>
       </view>
       <view class="nearby">

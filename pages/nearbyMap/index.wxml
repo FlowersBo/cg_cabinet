@@ -14,21 +14,26 @@
         </view>
         <view class="nearbyContent">
           <view class="nearby_station">{{item.pointname}}</view>
-          <view class="nearby_address">{{item.address}}</view>
+          <view class="nearby_address">具体位置：{{item.address}}</view>
         </view>
       </view>
     </block>
   </view>
 </scroll-y>
+<view class="{{isFlag?'iconWrap':'iconNone'}}">
+  <icon class="iconfont icon iconzanwushuju"></icon>
+  <text class="icon_text">暂无数据，亲亲稍后再来吧~~</text>
+</view>
 <!--mask-->
-<view class="drawer_screen" bindtap="bargainCloseFun" data-statu="close" wx:if="{{showModalStatus}}"></view>
+<view class="drawer_screen" data-status="1" bindtap="gotobargainDetailFun" data-status="1" wx:if="{{showModalStatus}}"></view>
 <!--content-->
 <!--使用animation属性指定需要执行的动画-->
+<!-- <mask id="console" openSetting="{{openSetting}}" bind:statusNumber="statusNumberFn"/> -->
 <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
   <view class="drawer_box_content">
     <view class="drawer_box_contentText">
       <view class="authorization_title">授权位置信息</view>
-      <view class="authorization_content">获取您的位置信息仅用于展示附近存包柜点位置，拒绝将返回首页</view>      
+      <view class="authorization_content">获取您当前位置信息仅用于展示附近存包柜位置，拒绝将返回首页</view>      
     </view>
   </view>
   <view class="btnWrap">

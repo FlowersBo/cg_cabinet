@@ -1,0 +1,9 @@
+<!--pages/cs/index.wxml-->
+<cu-custom bgColor="bg-user-color" isBack="true" class="custom">
+  <view slot="backText">返回</view>
+  <view slot="content">商家</view>
+</cu-custom>
+<!-- <mask id="mask" openSetting="{{openSetting}}" bind:statusNumber="statusNumberFn"/> -->
+<view class="container">
+  <ec-canvas class="ec_canvas" id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+</view>

@@ -1,0 +1,16 @@
+<!--component/console/index.wxml-->
+<view class="drawer_screen" bindtap="gotobargainDetailFuns" data-status="1" wx:if="{{showModalStatus}}"></view>
+<!--content-->
+<!--使用animation属性指定需要执行的动画-->
+<view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+  <view class="drawer_box_content">
+    <view class="drawer_box_contentText">
+      <view class="authorization_title">授权位置信息</view>
+      <view class="authorization_content">获取您当前位置信息仅用于展示附近存包柜位置，拒绝将返回首页</view>
+    </view>
+  </view>
+  <view class="btnWrap">
+    <button class="drawer_box_btn" data-status="0" catchtap="gotobargainDetailFuns">允许</button>
+    <button class="drawer_box_btn" data-status="1" catchtap="gotobargainDetailFuns">拒绝</button>
+  </view>
+</view>

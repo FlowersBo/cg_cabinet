@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "mask":"../../component/mask/index",
+    "scroll-y": "/component/scroll-y/index",
+    "ec-canvas": "/component/ec-canvas/ec-canvas"
+  }
+}

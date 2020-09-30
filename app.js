@@ -2,67 +2,62 @@
 App({
   globalData: {
     // siteroot: 'http://192.168.1.129:8080',
-    // siteroot: 'http://39.96.84.9:9000/api',
-    // siteroot: 'https://mp.bnzbj.com/api',
-    citySel: null,
-    userinfo: null,
-    userInput: null,
-    userLat: null,
-    userLng: null,
-    userMoblie: null,
-    token: '',
-    isAuthor: false
+    userTouch: 0
   },
   onShow: function (options) {
-    // console.log("app-onShow");
+    console.log("app-onShow");
     let that = this;
     console.log('当前场景值', options.scene);
-    if (options.scene == 1038) {
-      const {
-        appId,
-        extraData
-      } = options.referrerInfo
-      console.log(appId, extraData);
-      // 免密签约
-      var errorCode = options.referrerInfo && options.referrerInfo.extraData && options.referrerInfo.extraData.return_code ? options.referrerInfo.extraData.return_code : '';
-      if (errorCode == 'SUCCESS') {
-        var appid = options.referrerInfo.appId;
-        var contractId = options.referrerInfo.extraData.contract_id;
-        console.log("签约成功");
-        that.globalData.baseInfo.appid = appid;
-        that.globalData.baseInfo.contractId = contractId;
-        that.globalData.baseInfo.contractIds = contractId;
-        that.globalData.baseInfo.bindStatus = 1;
-        //认证绑定后通过navigateBack跳转到首页scan可以直接退出
-        var pagelist = getCurrentPages();
-        var len = pagelist.length;
-        var init = 0;
-        var index = 0;
-        for (var i = 0; i < len; i++) {
-          if (pagelist[i].route.indexOf("scan/scan") >= 0) { //看路由里面是否有首页
-            init = 1;
-            index = i;
-          }
-        }
-        if (init == 1) {
-          wx.navigateBack({
-            delta: len - index - 1
-          });
-        } else {
-          wx.reLaunch({
-            url: "../destination/index" //这个是默认的单页
-          });
-        }
-
-      } else {
-        var msg = options.referrerInfo.extraData.return_msg;
-        wx.showModal({
-          title: errorCode,
-          content: msg,
-        });
-        console.log(TAG + ':签约失败');
-      }
+    if (options.scene === 1038 || options.referrerInfo.appId == 'wxd8f3793ea3b935b8') { // 场景值1038：从被打开的小程序返回,但安卓手机返回的是10001，所以只能根据appid去识别支付分的。
+      console.log("支付分返回商家小程序")
+      that.globalData.userTouch = 1;
     }
+
+    // if (options.scene == 1038) {
+    //   const {
+    //     appId,
+    //     extraData
+    //   } = options.referrerInfo
+    //   console.log(appId, extraData);
+    //   // 免密签约
+    //   var errorCode = options.referrerInfo && options.referrerInfo.extraData && options.referrerInfo.extraData.return_code ? options.referrerInfo.extraData.return_code : '';
+    //   if (errorCode == 'SUCCESS') {
+    //     var appid = options.referrerInfo.appId;
+    //     var contractId = options.referrerInfo.extraData.contract_id;
+    //     console.log("签约成功");
+    //     that.globalData.baseInfo.appid = appid;
+    //     that.globalData.baseInfo.contractId = contractId;
+    //     that.globalData.baseInfo.contractIds = contractId;
+    //     that.globalData.baseInfo.bindStatus = 1;
+    //     //认证绑定后通过navigateBack跳转到首页scan可以直接退出
+    //     var pagelist = getCurrentPages();
+    //     var len = pagelist.length;
+    //     var init = 0;
+    //     var index = 0;
+    //     for (var i = 0; i < len; i++) {
+    //       if (pagelist[i].route.indexOf("scan/scan") >= 0) { //看路由里面是否有首页
+    //         init = 1;
+    //         index = i;
+    //       }
+    //     }
+    //     if (init == 1) {
+    //       wx.navigateBack({
+    //         delta: len - index - 1
+    //       });
+    //     } else {
+    //       wx.reLaunch({
+    //         url: "../destination/index" //这个是默认的单页
+    //       });
+    //     }
+
+    //   } else {
+    //     var msg = options.referrerInfo.extraData.return_msg;
+    //     wx.showModal({
+    //       title: errorCode,
+    //       content: msg,
+    //     });
+    //     console.log(TAG + ':签约失败');
+    //   }
     // }
   },
 
@@ -148,4 +143,5 @@ App({
       })
     }
   }
+
 })

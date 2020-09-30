@@ -14,6 +14,7 @@ Page({
     orderList: [],
     current: '1',
     pageCount: 1,
+    isFlag: false,
     pull: {
       isLoading: false,
       loading: '../../resource/img/pull_refresh.gif',
@@ -60,7 +61,8 @@ Page({
             .then(resp => {
               console.log("授权返回参数", resp);
               if (resp.data.code == "0") {
-                wx.setStorageSync('open_id', resp.data.data);
+                wx.setStorageSync('open_id', resp.data.data.openid);
+                wx.setStorageSync('sessionKey', resp.data.data.sessionKey);
                 that.orderListFn();
                 //用户已点击;授权
               } else {
@@ -85,9 +87,12 @@ Page({
 
   // 订单列表
   orderListFn: (current) => {
+    that.setData({
+      isFlag: false
+    })
     const data = {
       openid: wx.getStorageSync('open_id'),
-      size: "5",
+      size: "10",
       current: current
     }
     mClient.wxRequest(api.OrderList, data)
@@ -110,10 +115,15 @@ Page({
 
           });
           orderList = that.data.orderList.concat(orderList);
-          if(orderList.length >= 5){
+          if (orderList.length >= 10) {
             const pullText = '- 上拉加载更多 -'
             that.setData({
               'push.pullText': pullText,
+            })
+          }
+          if(orderList.length <= 0){
+            that.setData({
+              isFlag: true
             })
           }
           console.log('修改后订单列表', orderList)
@@ -127,6 +137,9 @@ Page({
             title: res.message,
             icon: 'none',
             duration: 1000
+          })
+          that.setData({
+            isFlag: true
           })
         }
       })

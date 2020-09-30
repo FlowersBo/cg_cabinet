@@ -89,14 +89,6 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
     "plugin": {
       "current": -1,
       "list": []
@@ -109,14 +101,42 @@
       "current": -1,
       "list": []
     },
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
     "miniprogram": {
       "current": -1,
       "list": [
         {
-          "id": -1,
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
+          "id": 0,
+          "name": "首页",
+          "pathName": "pages/destination/index",
           "query": "",
+          "scene": null
+        },
+        {
+          "id": 1,
+          "name": "授权页",
+          "pathName": "pages/wxlogin/index",
+          "query": "https://w3.morninggo.cn/vd/1307132601709887488|cw100086003|1",
+          "scene": 1011
+        },
+        {
+          "id": 2,
+          "name": "测试",
+          "pathName": "pages/cs/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "支付",
+          "pathName": "pages/wxPay/index",
           "scene": null
         }
       ]

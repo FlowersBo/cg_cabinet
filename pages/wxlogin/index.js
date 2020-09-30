@@ -17,16 +17,28 @@ Page({
   onLoad: function (options) {
     that = this;
     let open_id = wx.getStorageSync('open_id');
-    if (open_id == '') {
+    if (!open_id) {
       that.wxLogin();
     }
-    // const p1 = mClient.login();
-    // console.log(p1)
-    // //并行请求  -- wxLogin 
-    // Promise.all([p1]).then((res) => {
-    //   console.log('PromiseAll', res);
-    //   // wx.hideLoading()
-    // })
+
+    console.log('扫码拿到参数', options);
+    let result = options.q;
+    if (result) {
+      let path = decodeURIComponent(result);
+      console.log(path)
+      const pathPart = path.split('vd/')[1].split('|');
+      console.log(pathPart);
+      wx.setStorageSync('pathPart', pathPart);
+    }
+    // else{
+    //   const path = Object.values(options)
+    //   // let path = decodeURIComponent(options);
+    //   console.log(path[0])
+    //   const pathPart = path[0].split('|');
+    //   console.log(pathPart);
+    //   wx.setStorageSync('pathPart', pathPart);
+    // }
+
     that.showModal('bottomModal');
   },
   // 授权
@@ -38,16 +50,24 @@ Page({
         'Kj6wlvvil7tUub1fxknEfIr-hi23QqBnj5lVdvn5FKo'
       ],
       success(res) {
-        console.log(res);
+        console.log('成功', res);
         that.hideModal();
       },
       fail(res) { // 接口调用失败的回调函数
-        console.log(res)
+        console.log('失败', res);
+        that.hideModal();
       }
     })
   },
   //测试Promise.all
   // p1: function () {
+  // const p1 = mClient.login();
+  // console.log(p1)
+  // //并行请求  -- wxLogin 
+  // Promise.all([p1]).then((res) => {
+  //   console.log('PromiseAll', res);
+  //   // wx.hideLoading()
+  // })
   //   mClient.login()
   //   .then(resp => {
   //     console.log('code', resp);
@@ -82,7 +102,7 @@ Page({
               console.log("授权返回参数", resp);
               if (resp.data.code == "0") {
                 wx.setStorageSync('open_id', resp.data.data.openid);
-                //用户已点击;授权
+                wx.setStorageSync('sessionKey', resp.data.data.sessionKey);
               } else {
                 wx.showToast({
                   title: '授权失败',
@@ -124,13 +144,13 @@ Page({
 
   // 授权
   getPhoneNumber: (e) => {
-    let open_id = wx.getStorageSync('open_id');
-    console.log(open_id)
-    console.log(e.detail);
+    let [customer_id, FactoryNO, specifications] = wx.getStorageSync('pathPart');
+    console.log(customer_id, FactoryNO, specifications);
+    // const customer_id = '1309405954739011584';
+    // const FactoryNO = "cw100086003"
     var iv = e.detail.iv;
     var encryptedData = e.detail.encryptedData;
     // encryptedData = encodeURIComponent(encryptedData);
-    // console.log('替换后',encryptedData)
     wx.getSetting({
       success(res) {
         console.log("已授权", res);
@@ -138,55 +158,48 @@ Page({
         // 已经授权，可以直接调用
         if (e.detail.encryptedData) {
           try {
-            mClient.login()
-              .then(resp => {
-                let code = resp;
-                if (code) {
-                  console.log("iv", iv, '\n', "encryptedData", encryptedData, '\n', "code", code)
-                  // 获取登录用户信息
-                  let customer_id = '1'; //用户ID
-                  let FactoryNO = '2222'; //设备ID
-                  const data = {
-                    code: code,
-                    openid: open_id,
-                    encryptedData: encryptedData,
-                    iv: iv,
-                    customer_id,
-                    FactoryNO
-                  }
+            if (wx.getStorageSync('open_id')) {
+              console.log("iv", iv, '\n', "encryptedData", encryptedData)
+              // 获取登录用户信息
+              const data = {
+                sessionKey: wx.getStorageSync('sessionKey'),
+                openid: wx.getStorageSync('open_id'),
+                encryptedData: encryptedData,
+                iv: iv,
+                customer_id,
+                FactoryNO
+              }
 
-                  mClient.wxRequest(api.PhoneNumber, data)
-                    .then(res => {
-                      console.log("授权返回参数", res);
-                      if (res.code == "0") {
-                        // 跳转免密授权
-                        wx.redirectTo({
-                          url: '/pages/wxPay/index',
-                        })
-                      } else {
-                        wx.showToast({
-                          title: res.message,
-                          icon: 'none',
-                          duration: 1000
-                        })
-                        wx.hideLoading();
-                        wx.redirectTo({
-                          url: '/pages/destination/index'
-                        })
-                      }
+              mClient.wxRequest(api.PhoneNumber, data)
+                .then(res => {
+                  console.log("授权返回参数", res);
+                  if (res.code == "0") {
+                    let orderinfo_id = res.data.orderinfo_id;
+                    wx.setStorageSync('orderinfo_id', orderinfo_id);
+                    // 跳转免密授权
+                    wx.redirectTo({
+                      url: '/pages/wxPay/index',
                     })
-                    .catch(rej => {
-                      console.log(rej)
-                      wx.showToast({
-                        title: rej.error,
-                        icon: 'none',
-                        duration: 2000
-                      })
+                  } else {
+                    wx.showToast({
+                      title: res.message,
+                      icon: 'none',
+                      duration: 1000
                     })
-                } else {
-                  console.log('获取用户手机号失败！');
-                }
-              })
+                    wx.hideLoading();
+                  }
+                })
+                .catch(rej => {
+                  console.log(rej)
+                  wx.showToast({
+                    title: rej.error,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                })
+            } else {
+              console.log('获取用户手机号失败！');
+            }
           } catch (e) {
             console.log(e);
           }
@@ -230,9 +243,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    setTimeout(function () {
-      wx.stopPullDownRefresh()
-    }, 500)
+    console.log("下拉刷新")
+    // 显示顶部刷新图标  
+    wx.showNavigationBarLoading();
+    // 停止下拉动作  
+    wx.stopPullDownRefresh();
+    if (that.data) {
+      // 隐藏导航栏加载框  
+      wx.hideNavigationBarLoading();
+    }
   },
 
   /**

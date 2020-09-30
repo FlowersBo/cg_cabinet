@@ -29,6 +29,19 @@
   height: 0rpx;
 }
 
+/* 加载 */
+/* .pull-refreshs {
+  position: fixed;
+  left: 50%;
+  margin-left: -100rpx;
+  bottom: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .5s ease-in-out;
+  overflow: hidden;
+} */
+
 .f-color-666 {
   color: #666;
 }
