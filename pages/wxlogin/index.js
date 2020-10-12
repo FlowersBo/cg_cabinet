@@ -16,11 +16,12 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    wx.hideShareMenu();
     let open_id = wx.getStorageSync('open_id');
     if (!open_id) {
       that.wxLogin();
     }
-
+    // https://w3.morninggo.cn/vd/1311235753614770176|cw100086003|1
     console.log('扫码拿到参数', options);
     let result = options.q;
     if (result) {
@@ -39,26 +40,9 @@ Page({
     //   wx.setStorageSync('pathPart', pathPart);
     // }
 
-    that.showModal('bottomModal');
+    // that.showModal('bottomModal');
   },
-  // 授权
-  authorizationFn: () => {
-    // 授权订阅（需要提醒版本过低的用户）
-    wx.requestSubscribeMessage({
-      tmplIds: [
-        'GMks3J43_oZ8TpdZMrQoOF8eUsiZtxSomCJZf1s7JEc',
-        'Kj6wlvvil7tUub1fxknEfIr-hi23QqBnj5lVdvn5FKo'
-      ],
-      success(res) {
-        console.log('成功', res);
-        that.hideModal();
-      },
-      fail(res) { // 接口调用失败的回调函数
-        console.log('失败', res);
-        that.hideModal();
-      }
-    })
-  },
+ 
   //测试Promise.all
   // p1: function () {
   // const p1 = mClient.login();
@@ -78,16 +62,16 @@ Page({
   //   })
   // },
 
-  showModal(e) {
-    this.setData({
-      modalName: e
-    })
-  },
-  hideModal(e) {
-    this.setData({
-      modalName: null
-    })
-  },
+  // showModal(e) {
+  //   this.setData({
+  //     modalName: e
+  //   })
+  // },
+  // hideModal(e) {
+  //   this.setData({
+  //     modalName: null
+  //   })
+  // },
   // 登录
   wxLogin: () => {
     mClient.login()
@@ -167,7 +151,8 @@ Page({
                 encryptedData: encryptedData,
                 iv: iv,
                 customer_id,
-                FactoryNO
+                FactoryNO,
+                specifications
               }
 
               mClient.wxRequest(api.PhoneNumber, data)

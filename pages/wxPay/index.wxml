@@ -29,7 +29,7 @@
       <view class="liability">勾选即同意</view>
       <view class="liability" bindtap="liabilityFun">《委托扣款授权书》</view>
     </view>
-    <button class="bottom" disabled="{{disabled}}" bindtap="wxPayFn">
+    <button class="bottom" disabled="{{disabled}}" bindtap="authorizationFn">
       <view>免押金存包</view>
       <view class="chance">(微信支付分550分及以上有机会)</view>
     </button>

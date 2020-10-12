@@ -21,14 +21,16 @@ Page({
   onLoad: function (options) {
     that = this;
     const orderinfo_code = options.orderinfo_code;
+    const mark = options.mark;
     if (orderinfo_code) {
-      that.doorFn(orderinfo_code);
+      that.doorFn(orderinfo_code, mark);
     }
   },
-  doorFn: (orderinfo_code) => {
+  doorFn: (orderinfo_code, mark) => {
     if (orderinfo_code == '0') {
       that.setData({
-        isFlag: true
+        isFlag: true,
+        mark: mark
       })
     } else {
       that.setData({

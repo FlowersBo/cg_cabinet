@@ -135,7 +135,7 @@ Page({
   },
 
 
-  // 订单列表
+  // 列表
   orderListFn: (current) => {
     that.setData({
       isFlag: false
@@ -190,6 +190,9 @@ Page({
           title: rej.error,
           icon: 'none',
           duration: 2000
+        })
+        that.setData({
+          isFlag: true
         })
       })
   },

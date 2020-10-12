@@ -15,7 +15,6 @@ Page({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
-    checked: true,
   },
 
   /**
@@ -23,6 +22,7 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    wx.hideShareMenu();
   },
   //规则查询
   billingFn: () => {
@@ -57,6 +57,32 @@ Page({
       })
   },
 
+  // 授权订阅（需要提醒版本过低的用户）
+  authorizationFn: () => {
+    if (that.data.checked) {
+      wx.requestSubscribeMessage({
+        tmplIds: [
+          'GMks3J43_oZ8TpdZMrQoOF8eUsiZtxSomCJZf1s7JEc',
+          'Kj6wlvvil7tUub1fxknEfIr-hi23QqBnj5lVdvn5FKo'
+        ],
+        success(res) {
+          console.log('成功', res);
+          that.wxPayFn();
+        },
+        fail(res) { // 接口调用失败的回调函数
+          console.log('失败', res);
+          that.wxPayFn();
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '请先同意勾选委托扣款授权书',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  },
+
   // 免押金开门
   wxPayFn: (current) => {
     that.setData({
@@ -67,36 +93,27 @@ Page({
     // const customer_id = '1309405954739011584';
     // const FactoryNO = "cw100086003";
     // const specifications = '0';
-    if (that.data.checked) {
-      let orderinfo_id = wx.getStorageSync('orderinfo_id');
-      const data = {
-        openid: wx.getStorageSync('open_id'),
-        orderinfo_id,
-        customerId: customer_id,
-        FactoryNO,
-        specifications
-      }
-      mClient.wxRequest(api.paymentAuthorization, data)
-        .then(res => {
-          console.log('下单返回', res)
-          if (res) {
-            wx.redirectTo({
-              url: '/pages/bagClaim/index?orderinfo_code=' + res.code
-            })
-          }
-        })
-        .catch(rej => {
-          console.log(rej)
-        })
-    } else {
-      wx.showToast({
-        title: '请先同意勾选委托扣款授权书',
-        icon: 'none',
-        duration: 2000
-      })
+    let orderinfo_id = wx.getStorageSync('orderinfo_id');
+    const data = {
+      openid: wx.getStorageSync('open_id'),
+      orderinfo_id,
+      customerId: customer_id,
+      FactoryNO,
+      specifications
     }
-
-
+    mClient.wxRequest(api.paymentAuthorization, data)
+      .then(res => {
+        console.log('下单返回', res);
+        const mark = res.data;
+        if (res) {
+          wx.redirectTo({
+            url: '/pages/bagClaim/index?orderinfo_code=' + res.code + '&mark=' + mark
+          })
+        }
+      })
+      .catch(rej => {
+        console.log(rej)
+      })
 
     // if (wx.openBusinessView) {
     //   const mch_id = '1602794611';
@@ -191,6 +208,7 @@ Page({
         console.log("获取token，授权状态", res);
         if (res) {
           const token = res.data.data.token;
+          console.log('支付分token',token);
           const user_service_state = res.data.data.user_service_state;
           console.log(user_service_state)
           if (!user_service_state) {
@@ -202,7 +220,7 @@ Page({
                 apply_permissions_token: token,
               },
               success(e) {
-                console.log('跳转支付分成功');
+                console.log('跳转支付分成功',e)
               },
               fail() {
                 //dosomething
@@ -221,7 +239,7 @@ Page({
           //   duration: 1000
           // })
         }
-      })
+      }) 
       .catch(rej => {
         console.log(rej)
         // wx.showToast({

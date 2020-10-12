@@ -123,7 +123,7 @@
           "id": 1,
           "name": "授权页",
           "pathName": "pages/wxlogin/index",
-          "query": "https://w3.morninggo.cn/vd/1307132601709887488|cw100086003|1",
+          "query": "",
           "scene": 1011
         },
         {
@@ -137,6 +137,7 @@
           "id": -1,
           "name": "支付",
           "pathName": "pages/wxPay/index",
+          "query": "",
           "scene": null
         }
       ]

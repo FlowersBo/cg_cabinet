@@ -7,7 +7,7 @@
     <view wx:if="{{isFlag}}" class="imgWrap">
       <image class="ellipse" src="../../resource/img/ellipse.png"></image>
       <image class="door" src="../../resource/img/door.png"></image>
-      <view class="img_text">40号</view>
+      <view class="img_text">{{mark}}号</view>
     </view>
     <view wx:else class="imgWrap">
       <image class="ellipse" src="../../resource/img/close-door.png"></image>

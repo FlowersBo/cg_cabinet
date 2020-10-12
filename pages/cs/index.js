@@ -1,40 +1,51 @@
 // pages/cs/index.js
 let that;
 import * as echarts from '../../component/ec-canvas/echarts';
-// function initChart(chart, data_item) {
-//   // const chart = echarts.init(canvas, null, {
-//   //   width: width,
-//   //   height: height,
-//   //   devicePixelRatio: dpr // new
-//   // });
-//   // canvas.setChart(chart);
-// };
-// 初始化图表
-function initChart(chart,data_item) {
+// 饼状图
+function initChart(chart, data_item) {
   var option = {
     backgroundColor: "#ffffff",
-    color: ["#37A2DA", "#32C5E9", "#67E0E3", "#91F2DE", "#FFDB5C", "#FF9F7F"],
+    color: ["#C23831", "#334B5C", "#61A0A8", "#91F2DE", "#FFDB5C", "#FF9F7F"],
     title: {
-      show: true,
-      text: "这是标题",
-      subtext: "Sub Title",
-      left: "center",
-      top: "center",
-      textStyle: {
-        fontSize: 30,
-        textBorderColor: "rgba(54, 25, 238, 1)"
-      },
-      subtextStyle: {
-        fontSize: 20
-      },
+      text: '测试饼状图',
+      left: 'center',
     },
+    legend: {
+      data: ['小柜', '中柜', '大柜'],
+      top: '5%',
+      left: '5%',
+      z: 100,
+      selectedMode: true, //是否可选显示
+      orient: 'vertical',
+      textStyle: {fontStyle:'oblique'}
+    },
+    tooltip: {
+      show: true,
+      trigger: 'item',
+      formatter: "销售额 \n{b} : {c} ({d}%)",
+      // formatter: "{b} : {c} ({d}%)", //{a} <br/>
+      // formatter: function (params) {
+      //   console.log(params)
+      //   var result = '';
+      //   params.forEach(function (item) {
+      //     result += item.marker + " " + item.seriesName + " : " + item.value + "</br>";
+      //   });
+      //   return result;
+      // },
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        mark: {
+          show: true
+        }
+      }
+    },
+    calculable: true,
     series: [{
       label: {
         normal: {
           fontSize: 12 //图显示字体大小
-        },
-        lessonLine: {
-          lazyLoad: true
         }
       },
       data: data_item,
@@ -52,113 +63,62 @@ function initChart(chart,data_item) {
 function getLineOption(chart) {
   var option = {
     title: {
-      text: '营业趋势'
+      text: '测试营业趋势',
+      left: 'center'
+    },
+    color: ["#37A2DA", "#67E0E3", "#9FE6B8"],
+    legend: {
+      data: ['A', 'B', 'C'],
+      top: 40,
+      left: 'center',
+      backgroundColor: 'yellow',
+      z: 100,
+      selectedMode: true,
+    },
+    grid: {
+      containLabel: true
     },
     tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross',
-      },
-    },
-    toolbox: {
       show: true,
-      feature: {
-        mark: {
-          show: true
-        },
-        dataView: {
-          show: true,
-          readOnly: false
-        },
-        restore: {
-          show: true
-        },
-        saveAsImage: {
-          show: true
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      // show: false //是否显示X轴
+    },
+    yAxis: {
+      x: 'center',
+      type: 'value',
+      splitLine: {
+        lineStyle: {
+          type: 'dashed'
         }
       }
-    },
-    legend: {
-      data: ['营业趋势']
+      // show: false
     },
     grid: {
       left: '3%',
       bottom: '3%',
       containLabel: true
     },
-    toolbox: {
-      show: true,
-      feature: {
-        mark: {
-          show: true
-        },
-        dataView: {
-          show: true,
-          readOnly: false
-        },
-        magicType: {
-          show: true,
-          type: ['line', 'bar', 'stack', 'tiled']
-        },
-        restore: {
-          show: true
-        },
-        saveAsImage: {
-          show: true
-        }
-      }
-    },
-    calculable: true,
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    },
-    yAxis: {
-      type: 'value'
-    },
     series: [{
-      data: [820, 932, 801, 434, 1290, 830, 1320],
-      type: 'line'
+      name: 'A',
+      type: 'line',
+      smooth: true,
+      data: [18, 36, 65, 30, 78, 40, 33]
+    }, {
+      name: 'B',
+      type: 'line',
+      smooth: true,
+      data: [12, 50, 51, 35, 70, 30, 20]
+    }, {
+      name: 'C',
+      type: 'line',
+      smooth: true,
+      data: [10, 30, 31, 50, 40, 20, 10]
     }]
-    // xAxis: [{
-    //   type: 'category',
-    //   boundaryGap: false,
-    //   // data: this.data.consumeDay,//此处为数组
-    //   axisLabel: {
-    //     // interval: this.data.interval, //x轴间隔多少显示刻度
-    //     interval: 0,
-    //     fontSize: 8,
-    //   }
-    // }],
-    // yAxis: [{
-    //   type: 'value',
-    //   axisLine: {
-    //     show: true
-    //   },
-    //   axisTick: {
-    //     show: true
-    //   },
-    // }],
-    // series: [{
-    //   name: '营业趋势',
-    //   type: 'line',
-    //   smooth: true,
-    //   center: ['100%', '100%'],
-    //   itemStyle: {
-    //     normal: {
-    //       color: '#56cbff',
-    //       fontSize: '80',
-    //       lineStyle: {
-    //         color: '#56cbff'
-    //       },
-    //       areaStyle: {
-    //         color: 'rgb(230,249,252)'
-    //       },
-    //     }
-    //   },
-    //   // data: this.data.consumeAmount,//此处为数组
-    //   data: [1,2,3,4,5,6,7,8],//此处为数组
-    // }]
   };
   chart.setOption(option);
   return chart;
@@ -167,31 +127,24 @@ function getLineOption(chart) {
 
 
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     openSetting: 'open',
     ec: {
-      onInit: getLineOption,
+      onInit: initChart,
       lazyLoad: true //初始化加载
     },
     data_item: [{
-      value: 55,
-      name: '北京'
+      value: 45,
+      name: '小柜'
     }, {
-      value: 20,
-      name: '武汉'
+      value: 46,
+      name: '中柜'
     }, {
-      value: 10,
-      name: '杭州'
-    }, {
-      value: 20,
-      name: '广州'
-    }, {
-      value: 38,
-      name: '上海'
+      value: 60,
+      name: '大柜'
     }]
   },
 
@@ -207,23 +160,23 @@ Page({
         height: height,
         devicePixelRatio: dpr // new
       });
-      chart.on('click', function(handler, context) {
-        // var handlerValue = handler.name + ' :  ' + handler.value
-        var handlerValue = 'handler.name' + ' :  ' + 'handler.value'
-        wx.showToast({
-          title: handlerValue,
-          icon: 'none',
-          duration: 1200,
-          mask: true
-        })
-      });
-      // return chart;
-      // canvas.setChart(chart);
-      // initChart(chart, data_item);
+
+      // chart.on('click', function (handler, context) {
+      //   // var handlerValue = handler.name + ' :  ' + handler.value
+      //   var handlerValue = '北京' + ' :  ' + '55'
+      //   wx.showToast({
+      //     title: handlerValue,
+      //     icon: 'none',
+      //     duration: 1200,
+      //     mask: true
+      //   })
+      // });
+
+      canvas.setChart(chart);
+      initChart(chart, data_item);
+      // getLineOption(chart);
       //  this.chart = chart;
-      //  return chart;
-    // initChart(chart,data_item);
-    getLineOption(chart);
+      return chart;
     });
   },
 
@@ -246,8 +199,9 @@ Page({
     this.oneComponent = this.selectComponent('#mychart-dom-bar');
     // this.mask.util('open');
     that.simulateRequest();
+    // that.formatter();
   },
-
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
