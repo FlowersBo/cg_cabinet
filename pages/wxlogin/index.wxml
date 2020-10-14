@@ -7,7 +7,7 @@
 <view class='wxloginWrap'>
   <view class='wxLogin'>
     <view class='header'>
-      <image class='headerImage' src='/resource/img/user_img.png'></image>
+      <image class='headerImage' src='/resource/img/log.png'></image>
       <view class="logoName"></view>
     </view>
     <!-- <view style="width:100%;height:400rpx;background:gray;">

@@ -15,15 +15,10 @@ Page({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
+    errMsg: '', //支付分是否跳转成功
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    that = this;
-    wx.hideShareMenu();
-  },
+
   //规则查询
   billingFn: () => {
     // orderinfo_id = '1310520658144264192';
@@ -173,6 +168,15 @@ Page({
       });
     }
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    that = this;
+    wx.hideShareMenu();
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -185,19 +189,20 @@ Page({
    */
   onShow: function () {
     that.billingFn();
-    that.startusQueryFn();
     that.setData({
       disabled: false
     })
-    // const userTouch = app.globalData.userTouch;
-    // console.info('小程序跳转回来', userTouch);
-    // if (userTouch == 1) {
-
-    // }
+    const userTouch = app.globalData.userTouch;
+    console.info('小程序跳转回来', userTouch);
+    that.startusQueryFn(userTouch);
+    if (userTouch == '1') {
+      app.globalData.userTouch = '0';
+      console.log("变更为", app.globalData.userTouch);
+    }
   },
 
   // 授权查询
-  startusQueryFn: () => {
+  startusQueryFn: (userTouch) => {
     let orderinfo_id = wx.getStorageSync('orderinfo_id');
     const data = {
       orderinfo_id,
@@ -206,11 +211,31 @@ Page({
     mClient.wxGetRequest(api.permissionsToken, data)
       .then(res => {
         console.log("获取token，授权状态", res);
-        if (res) {
+        if (res.data.code == '0') {
           const token = res.data.data.token;
-          console.log('支付分token',token);
+          console.log('支付分token', token);
           const user_service_state = res.data.data.user_service_state;
-          console.log(user_service_state)
+          console.log('授权状态', user_service_state);
+          // const errMsg = wx.getStorageSync('errMsg');
+          // console.log('是否进入过支付分小程序',errMsg);
+          if (userTouch == '1' && !user_service_state && that.data.errMsg) {
+            wx.showModal({
+              title: '提示',
+              content: '尊敬的用户,您已取消支付分授权,无法继续打开柜门,若需继续使用,请重新扫码！',
+              showCancel: false,
+              confirmText: '返回首页',
+              success(res) {
+                if (res.confirm) {
+                  app.globalData.userTouch = '0';
+                  console.log("变更为", app.globalData.userTouch);
+                  wx.reLaunch({
+                    url: '/pages/destination/index',
+                  })
+                }
+              }
+            })
+            return
+          }
           if (!user_service_state) {
             // 拉起支付分小程序
             wx.navigateToMiniProgram({
@@ -220,17 +245,19 @@ Page({
                 apply_permissions_token: token,
               },
               success(e) {
-                console.log('跳转支付分成功',e)
+                console.log('跳转支付分成功', e);
+                // wx.setStorageSync('errMsg', e.errMsg);
+                that.setData({
+                  errMsg: e.errMsg
+                })
               },
-              fail() {
-                //dosomething
+              fail(e) {
+                console.log('跳转支付分失败', e)
               },
               complete() {
                 //dosomething
               }
             });
-          } else {
-
           }
         } else {
           // wx.showToast({
@@ -239,7 +266,7 @@ Page({
           //   duration: 1000
           // })
         }
-      }) 
+      })
       .catch(rej => {
         console.log(rej)
         // wx.showToast({

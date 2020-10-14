@@ -1,5 +1,8 @@
 /* pages/wxlogin/index.wxss */
 /* 授权登陆 */
+page{
+  background-color: #fff;
+}
 .wxloginWrap{
   width: 100%;
   height: 100%;
@@ -14,8 +17,8 @@
 }
  
 .header{
-  width: 250rpx;
-  height: 250rpx;
+  width: 450rpx;
+  height: 220rpx;
 }
 .headerImage {
   width: 100%;

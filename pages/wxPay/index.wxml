@@ -24,10 +24,10 @@
     </view>
     <view class="liabilityWrap">
       <checkbox-group bindchange="checkboxChange">
-        <checkbox class="blue" checked="{{checked}}"></checkbox>
+        <checkbox class="#04BE02" checked="{{checked}}"></checkbox>
       </checkbox-group>
       <view class="liability">勾选即同意</view>
-      <view class="liability" bindtap="liabilityFun">《委托扣款授权书》</view>
+      <view class="liability" bindtap="liabilityFun"> <text class="accredit">《委托扣款授权书》</text> </view>
     </view>
     <button class="bottom" disabled="{{disabled}}" bindtap="authorizationFn">
       <view>免押金存包</view>

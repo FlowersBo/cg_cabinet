@@ -32,16 +32,17 @@
             </view>
             <view class="order_detail">
               <view class="detail_name">起始时间：</view>
-              <view class="detail_content">{{item.createDate}}</view>
+              <view class="detail_content">{{item.startDate}}</view>
             </view>
             <block>
               <view class="order_detail">
                 <view class="detail_name">结束时间：</view>
-                <view class="detail_content">{{item.updateDate?item.updateDate:''}}</view>
+                <view class="detail_content">{{item.finishDate?item.finishDate:''}}</view>
               </view>
               <view class="order_detail">
                 <view class="detail_name">使用时长：</view>
-                <view class="detail_content">{{item.orderStatus?item.orderStatus:'待结算'}}</view>
+                <view wx:if="{{item.orderStatus=='已完成'}}" class="detail_content">{{item.orderDate}}</view>
+                <view wx:else class="detail_content">{{item.orderStatus?item.orderStatus:'待结算'}}</view>
               </view>
             </block>
           </view>

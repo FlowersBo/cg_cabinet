@@ -17,16 +17,14 @@ Page({
   onLoad: function (options) {
     that = this;
     wx.hideShareMenu();
-    let open_id = wx.getStorageSync('open_id');
-    if (!open_id) {
-      that.wxLogin();
-    }
+    // let open_id = wx.getStorageSync('open_id');
+    that.wxLogin();
     // https://w3.morninggo.cn/vd/1311235753614770176|cw100086003|1
     console.log('扫码拿到参数', options);
     let result = options.q;
     if (result) {
       let path = decodeURIComponent(result);
-      console.log('解码',path);
+      console.log('解码', path);
       const pathPart = path.split('vd/')[1].split('|');
       console.log(pathPart);
       wx.setStorageSync('pathPart', pathPart);
@@ -42,7 +40,7 @@ Page({
 
     // that.showModal('bottomModal');
   },
- 
+
   //测试Promise.all
   // p1: function () {
   // const p1 = mClient.login();

@@ -102,10 +102,12 @@ button::after {
 }
 
 .liability {
-  color: #0652FF;
+  color: #04BE02;
   font-weight: bold;
 }
-
+/* .accredit{
+  color: #04BE02;
+} */
 
 checkbox .wx-checkbox-input {
   transform: scale(0.7);

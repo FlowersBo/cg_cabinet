@@ -62,7 +62,7 @@ Page({
               console.log("授权返回参数", resp);
               if (resp.data.code == "0") {
                 wx.setStorageSync('open_id', resp.data.data.openid);
-                wx.setStorageSync('sessionKey', resp.data.data.sessionKey);
+                // wx.setStorageSync('sessionKey', resp.data.data.sessionKey);
                 that.orderListFn();
                 //用户已点击;授权
               } else {
@@ -101,10 +101,11 @@ Page({
         if (res.code == "0") {
           let orderList = res.data.orderInfoList;
           orderList.forEach(element => {
-            element.createDate = util.timestampToTimeLong(element.createDate);
-            if (element.updateDate) {
-              element.updateDate = util.timestampToTimeLong(element.updateDate);
+            if (element.finishDate) {
+              element.orderDate = util.intervalTime(element.startDate,element.finishDate);
+              element.finishDate = util.timestampToTimeLong(element.finishDate);
             }
+            element.startDate = util.timestampToTimeLong(element.startDate);
             if (element.orderStatus == '1') {
               element.orderStatus = '使用中'
             } else if (element.orderStatus == '2') {
@@ -121,7 +122,7 @@ Page({
               'push.pullText': pullText,
             })
           }
-          if(orderList.length <= 0){
+          if (orderList.length <= 0) {
             that.setData({
               isFlag: true
             })
