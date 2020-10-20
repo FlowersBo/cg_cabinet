@@ -31,6 +31,10 @@
               <view class="detail_content">{{item.pointName}}</view>
             </view>
             <view class="order_detail">
+              <view class="detail_name">取件码：</view>
+              <view class="detail_content">{{item.takeCode}}</view>
+            </view>
+            <view class="order_detail">
               <view class="detail_name">起始时间：</view>
               <view class="detail_content">{{item.startDate}}</view>
             </view>
