@@ -50,7 +50,7 @@
   "setting": {
     "urlCheck": false,
     "es6": true,
-    "enhance": false,
+    "enhance": true,
     "postcss": true,
     "preloadBackgroundData": false,
     "minified": true,
@@ -72,6 +72,7 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
@@ -114,17 +115,10 @@
       "list": [
         {
           "id": 0,
-          "name": "首页",
-          "pathName": "pages/destination/index",
+          "name": "报表",
+          "pathName": "pages/index/index",
           "query": "",
           "scene": null
-        },
-        {
-          "id": 1,
-          "name": "授权页",
-          "pathName": "pages/wxlogin/index",
-          "query": "https://w3.morninggo.cn/vd/1307132601709887488|cw100086003|1",
-          "scene": 1011
         },
         {
           "id": 2,
@@ -134,9 +128,38 @@
           "scene": null
         },
         {
+          "id": 3,
+          "name": "我的",
+          "pathName": "pages/user/index",
+          "query": "",
+          "scene": null
+        },
+        {
           "id": -1,
-          "name": "支付",
-          "pathName": "pages/wxPay/index",
+          "name": "分账",
+          "pathName": "pages/user/markeMoney/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "饼图",
+          "pathName": "pages/pieChart/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "订单列表",
+          "pathName": "pages/orderList/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "设备",
+          "pathName": "pages/equipment/index",
+          "query": "",
           "scene": null
         }
       ]

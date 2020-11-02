@@ -9,56 +9,9 @@ App({
     let that = this;
     console.log('当前场景值', options.scene);
     if (options.scene === 1038 || options.referrerInfo.appId == 'wxd8f3793ea3b935b8') { // 场景值1038：从被打开的小程序返回,但安卓手机返回的是10001，所以只能根据appid去识别支付分的。
-      console.log("支付分返回商家小程序")
+      console.log("返回小程序")
       that.globalData.userTouch = 1;
     }
-
-    // if (options.scene == 1038) {
-    //   const {
-    //     appId,
-    //     extraData
-    //   } = options.referrerInfo
-    //   console.log(appId, extraData);
-    //   // 免密签约
-    //   var errorCode = options.referrerInfo && options.referrerInfo.extraData && options.referrerInfo.extraData.return_code ? options.referrerInfo.extraData.return_code : '';
-    //   if (errorCode == 'SUCCESS') {
-    //     var appid = options.referrerInfo.appId;
-    //     var contractId = options.referrerInfo.extraData.contract_id;
-    //     console.log("签约成功");
-    //     that.globalData.baseInfo.appid = appid;
-    //     that.globalData.baseInfo.contractId = contractId;
-    //     that.globalData.baseInfo.contractIds = contractId;
-    //     that.globalData.baseInfo.bindStatus = 1;
-    //     //认证绑定后通过navigateBack跳转到首页scan可以直接退出
-    //     var pagelist = getCurrentPages();
-    //     var len = pagelist.length;
-    //     var init = 0;
-    //     var index = 0;
-    //     for (var i = 0; i < len; i++) {
-    //       if (pagelist[i].route.indexOf("scan/scan") >= 0) { //看路由里面是否有首页
-    //         init = 1;
-    //         index = i;
-    //       }
-    //     }
-    //     if (init == 1) {
-    //       wx.navigateBack({
-    //         delta: len - index - 1
-    //       });
-    //     } else {
-    //       wx.reLaunch({
-    //         url: "../destination/index" //这个是默认的单页
-    //       });
-    //     }
-
-    //   } else {
-    //     var msg = options.referrerInfo.extraData.return_msg;
-    //     wx.showModal({
-    //       title: errorCode,
-    //       content: msg,
-    //     });
-    //     console.log(TAG + ':签约失败');
-    //   }
-    // }
   },
 
   onLaunch: function () {
@@ -80,6 +33,21 @@ App({
         }
       }
     })
+  },
+
+  //纸飞机向右下滑动渐入渐出
+  sliderightupshow: function (that, param, px1, px2, opacity) {
+    var animation = wx.createAnimation({
+      duration: 800,
+      timingFunction: 'ease',
+    });
+    animation.translate(px1, px2).opacity(opacity).step()
+    //将param转换为key
+    var json = '{"' + param + '":""}'
+    json = JSON.parse(json);
+    json[param] = animation.export()
+    //设置动画
+    that.setData(json)
   },
 
   // 版本更新

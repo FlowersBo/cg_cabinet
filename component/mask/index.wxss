@@ -14,16 +14,16 @@
 
 /*content*/
 .drawer_box {
-  width: 660rpx;
-  height: 400rpx;
+  width: 600rpx;
+  height: 360rpx;
   /* background-color: #0042BB; */
-  background-image: linear-gradient(90deg, #0042BB, #8b62bb);
+  background-image: linear-gradient(90deg, #0042BB, #9d74cc);
   overflow: hidden;
   position: fixed;
   top: 50%;
   left: 0;
   z-index: 1001;
-  margin: -300rpx 45rpx 0 45rpx;
+  margin: -200rpx 75rpx 0 75rpx;
   border-radius: 10rpx;
   box-sizing: border-box;
   padding: 20rpx;
@@ -36,15 +36,16 @@
 .drawer_box_content {
   width: 600rpx;
   height: 200rpx;
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 20rpx;
   padding: 10rpx;
+  color: #fff;
 }
 .drawer_box_contentText{
   width: 100%;
   height: 100%;
   padding: 20rpx 0;
-  font-size: 28rpx;
+  font-size: 32rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -63,13 +64,13 @@
   justify-content: space-between;
 }
 .drawer_box_btn {
-  width: 180rpx;
-  height: 70rpx;
-  line-height: 70rpx;
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
   text-align: center;
   border-radius: 10rpx;
-  background-image: linear-gradient(90deg, #FE882E, #FCB918);
+  background-image: linear-gradient(90deg, #FE882E, #ffc233);
   /* background-color: #FEA91F; */
   color: #fff;
-  font-size: 36rpx;
+  font-size: 32rpx;
 }

@@ -1,0 +1,162 @@
+/* pages/user/index.wxss */
+.userWrap {
+  width: 100%;
+  position: relative;
+}
+
+.user {
+  width: 100%;
+  height: 300rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 5px 5px 2px #ddd;
+}
+
+.user_logo {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.user_logo image {
+  width: 100%;
+  height: 100%;
+  border-radius: 6rpx;
+}
+
+.userInfo {
+  width: 50%;
+  height: 40%;
+  font-size: 40rpx;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user_name {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.user_phone {
+  font-size: 32rpx;
+}
+
+.marketMoneyWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marketMoney {
+  width: 96%;
+  height: 200rpx;
+  background-color: #fff;
+  margin-top: 30rpx;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 5px 5px 2px #ddd;
+}
+
+.addMoney {
+  flex: 1;
+  width: 49%;
+  color: #333;
+  margin: 30rpx 0;
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: bold;
+  padding: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.addMoney:first-child {
+  border-right: 1px solid #dedede;
+}
+
+.phone {
+  width: 96%;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 0 30rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  box-shadow: 5px 5px 2px #ddd;
+}
+
+.icondianhua{
+  font-size: 40rpx;
+  margin-right: 10rpx;
+  color: #0042BB;
+}
+.userBtn {
+  width: 90%;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  margin-top: 200rpx;
+  border-radius: 20rpx;
+  background-color: #0042BB;
+  color: #fff;
+  font-size: 40rpx;
+  font-weight: bold;
+  letter-spacing: 20rpx;
+}
+.getNum_hover{
+  transform: scale(0.97, 0.97);
+}
+
+/* @keyframes mymove {
+  from {
+    top: -100rpx;
+  }
+
+  to {
+    left: 40%;
+  }
+} */
+
+/* .plane1 {
+  z-index: 1;
+  position: absolute;
+  top: -100rpx;
+  left: 40%;
+  animation: mymove 5s;
+  animation-fill-mode: none;
+} */
+
+.plane1{
+  position: absolute;
+  top: -100rpx;
+  left: 45%;
+}
+.plane2{
+  position: absolute;
+  top: 45%;
+  left: -100rpx;
+}
+.plane3{
+  position: absolute;
+  top: 40%;
+  right: -100rpx;
+}
+
+.plane1 image,
+.plane2 image,
+.plane3 image {
+  width: 100rpx;
+  height: 100rpx;
+}

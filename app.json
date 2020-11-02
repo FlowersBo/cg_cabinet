@@ -1,14 +1,13 @@
 {
   "pages": [
-    "pages/destination/index",
-    "pages/wxPay/index",
-    "pages/wxlogin/index",
-    "pages/bagClaim/index",
+    "pages/login/index",
     "pages/cs/index",
+    "pages/user/index",
+    "pages/index/index",
+    "pages/pieChart/index",
     "pages/orderList/index",
-    "pages/nearbyMap/index",
-    "pages/mapNavigation/index",
-    "pages/index/index"
+    "pages/equipment/index",
+    "pages/user/markeMoney/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FDE50D",
@@ -17,12 +16,44 @@
     "navigationBarTextStyle": "white"
   },
   "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom"
+    "cu-custom": "/colorui/components/cu-custom",
+    "scroll-y": "/component/scroll-y/index",
+    "noData": "/component/noData/noData"
   },
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
+  },
+  "tabBar": {
+    "color": "#979797",
+    "selectedColor": "#0042BB",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "报表",
+        "iconPath": "assets/tabbar/baobiao.png",
+        "selectedIconPath": "assets/tabbar/baobiao-h.png"
+      },
+      {
+        "pagePath": "pages/orderList/index",
+        "text": "订单",
+        "iconPath": "assets/tabbar/dingdan.png",
+        "selectedIconPath": "assets/tabbar/dingdan-h.png"
+      },
+      {
+        "pagePath": "pages/equipment/index",
+        "text": "设备",
+        "iconPath": "assets/tabbar/shebei.png",
+        "selectedIconPath": "assets/tabbar/shebei-h.png"
+      },
+      {
+        "pagePath": "pages/user/index",
+        "text": "我的",
+        "iconPath": "assets/tabbar/menu-mine.png",
+        "selectedIconPath": "assets/tabbar/menu-mine-h.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -1,16 +1,25 @@
 <!--pages/orderList/index.wxml-->
-<cu-custom bgColor="bg-user-color" isBack="true" class="custom">
+<cu-custom bgColor="bg-user-color" class="custom">
   <view slot="backText">返回</view>
-  <view slot="content">历史订单</view>
+  <view slot="content">订单</view>
 </cu-custom>
 <scroll-y class="scroll-view" pull="{{pull}}" push="{{push}}" listLength="{{clueData.length}}"
   style="position: absolute;top: {{2*customHeight}}rpx;bottom: 0;width: 100%;flex: 1;" bindrefresh="refresh"
   bindtoload="toload">
+  <!-- 日期选择 -->
+  <view class="{{total?'con':'iconNone'}}">
+    <view class="orderDate" title="日期">
+      <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class="weui-input">{{date}}</view>
+      </picker>
+      <image src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+    </view>
+  </view>
   <view class="orderListWrap">
     <block wx:for="{{orderList}}" wx:key="index">
       <view class="orderList" data-id="{{item.id}}" bindtap="clickOrder">
         <view class="order">
-          <view class="order_title">
+          <!-- <view class="order_title">
             <view class="order_status">
               <view class="order_status_img">
                 <image
@@ -20,37 +29,43 @@
               <view class="order_status_text">{{item.orderStatus}}</view>
             </view>
             <view class="order_money" wx:if="{{item.orderStatus=='已完成'}}">￥{{item.orderPrice}}</view>
-          </view>
+          </view> -->
           <view class="order_content">
             <view class="order_detail">
               <view class="detail_name">订单编号：</view>
               <view class="detail_content">{{item.orderNo}}</view>
             </view>
             <view class="order_detail">
-              <view class="detail_name">存包地点：</view>
+              <view class="detail_name">点位名称：</view>
               <view class="detail_content">{{item.pointName}}</view>
             </view>
             <view class="order_detail">
               <view class="detail_name">起始时间：</view>
-              <view class="detail_content">{{item.createDate}}</view>
+              <view class="detail_content">{{item.startDate}}</view>
             </view>
             <block>
               <view class="order_detail">
                 <view class="detail_name">结束时间：</view>
-                <view class="detail_content">{{item.updateDate?item.updateDate:''}}</view>
+                <view class="detail_content">{{item.finishDate}}</view>
               </view>
               <view class="order_detail">
                 <view class="detail_name">使用时长：</view>
-                <view class="detail_content">{{item.orderStatus?item.orderStatus:'待结算'}}</view>
+                <view class="detail_content">{{item.orderDate}}</view>
+              </view>
+              <view class="order_detail">
+                <view class="detail_name">收费金额：</view>
+                <view class="detail_content">{{item.orderPrice}}元</view>
               </view>
             </block>
           </view>
         </view>
+        <icon class="iconfont iconduigou1"></icon>
       </view>
     </block>
   </view>
 </scroll-y>
-<view class="{{isFlag?'iconWrap':'iconNone'}}">
+<!-- <view class="{{isFlag?'iconWrap':'iconNone'}}">
   <icon class="iconfont icon iconzanwushuju"></icon>
   <text class="icon_text">暂无数据，亲亲稍后再来吧~~</text>
-</view>
+</view> -->
+<noData isFlag="{{isFlag}}"></noData>

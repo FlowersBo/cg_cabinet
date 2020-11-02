@@ -13,7 +13,7 @@ Page({
   data: {
     orderList: [],
     current: '1',
-    pageCount: 1,
+    pageSize: '10',
     isFlag: false,
     pull: {
       isLoading: false,
@@ -25,6 +25,7 @@ Page({
       loading: '../../resource/img/pull_refresh.gif',
       pullText: ''
     },
+    date: '',
   },
 
   /**
@@ -33,12 +34,10 @@ Page({
   onLoad: function (options) {
     that = this;
     let current = '1';
-    let open_id = wx.getStorageSync('open_id');
-    if (open_id) {
-      that.orderListFn(current);
-    } else {
-      that.wxLogin();
-    }
+    let date = util.customFormatTime(new Date());
+    that.setData({
+      date: date
+    })
     const query = wx.createSelectorQuery().in(this)
     query.selectAll('.custom').boundingClientRect(function (res) {
       const customHeight = res[0].height;
@@ -46,73 +45,31 @@ Page({
         customHeight: customHeight
       })
     }).exec()
-  },
-
-  // 登录
-  wxLogin: () => {
-    mClient.login()
-      .then(resp => {
-        console.log('code', resp);
-        if (resp) {
-          let data = {
-            js_code: resp
-          }
-          mClient.wxGetRequest(api.Login, data)
-            .then(resp => {
-              console.log("授权返回参数", resp);
-              if (resp.data.code == "0") {
-                wx.setStorageSync('open_id', resp.data.data.openid);
-                wx.setStorageSync('sessionKey', resp.data.data.sessionKey);
-                that.orderListFn();
-                //用户已点击;授权
-              } else {
-                wx.showToast({
-                  title: '授权失败',
-                  icon: 'none',
-                  duration: 1000
-                })
-              }
-            })
-            .catch(rej => {
-              console.log(rej)
-            })
-        } else {
-          console.log('获取用户登录态失败！' + res);
-        }
-      })
-      .catch(rej => {
-        console.log(rej)
-      })
+    that.orderListFn(current);
   },
 
   // 订单列表
-  orderListFn: (current) => {
+  orderListFn: (current, orderdate) => {
     that.setData({
       isFlag: false
     })
     const data = {
-      openid: wx.getStorageSync('open_id'),
-      size: "10",
-      current: current
+      pagesize: that.data.pageSize,
+      pageindex: current,
+      id: wx.getStorageSync('userID'),
+      orderdate: orderdate
     }
-    mClient.wxRequest(api.OrderList, data)
+    mClient.wxGetRequest(api.OrderList, data)
       .then(res => {
         console.log("订单列表", res);
-        if (res.code == "0") {
-          let orderList = res.data.orderInfoList;
+        if (res.data.code == "200") {
+          let orderList = res.data.data.list;
           orderList.forEach(element => {
-            element.createDate = util.timestampToTimeLong(element.createDate);
-            if (element.updateDate) {
-              element.updateDate = util.timestampToTimeLong(element.updateDate);
+            if (element.finishDate) {
+              element.orderDate = util.intervalTime(element.startDate, element.finishDate);
+              element.finishDate = util.timestampToTimeLong(element.finishDate);
             }
-            if (element.orderStatus == '1') {
-              element.orderStatus = '使用中'
-            } else if (element.orderStatus == '2') {
-              element.orderStatus = '已完成'
-            } else {
-              element.orderStatus = '已取消'
-            }
-
+            element.startDate = util.timestampToTimeLong(element.startDate);
           });
           orderList = that.data.orderList.concat(orderList);
           if (orderList.length >= 10) {
@@ -121,20 +78,20 @@ Page({
               'push.pullText': pullText,
             })
           }
-          if(orderList.length <= 0){
+          if (orderList.length <= 0) {
             that.setData({
               isFlag: true
             })
           }
-          console.log('修改后订单列表', orderList)
+          console.log('修改后订单列表', orderList);
           that.setData({
             orderList: orderList,
             current: current,
-            pageCount: res.data.pageCount,
+            total: res.data.data.total,
           })
         } else {
           wx.showToast({
-            title: res.message,
+            title: res.data.message,
             icon: 'none',
             duration: 1000
           })
@@ -150,16 +107,36 @@ Page({
           icon: 'none',
           duration: 2000
         })
+        that.setData({
+          isFlag: true
+        })
       })
   },
 
-
-  // 刷新
-  refresh() {
+  //日期选择
+  bindDateChange: (e) => {
+    console.log(e);
+    let date = e.detail.value;
+    that.setData({
+      date: date,
+      'push.pullText': ''
+    })
     let current = '1';
     that.setData({
       current: '1',
       orderList: []
+    })
+    that.orderListFn(current, date);
+  },
+
+
+  refresh() {
+    let current = '1';
+    let date = util.customFormatTime(new Date());
+    that.setData({
+      current: '1',
+      orderList: [],
+      date: date
     })
     if (that.data.orderList.length <= 0) {
       that.setData({
@@ -169,29 +146,38 @@ Page({
         'push.pullText': '',
       })
       that.orderListFn(current);
-      if (that.data.orderList) {
-        setTimeout(() => {
+      console.log('当前orderList', Boolean(that.data.orderList));
+      console.log(that.data.orderList.length > 0)
+      setTimeout(() => {
+        if (that.data.orderList.length > 0) {
           that.setData({
             'pull.loading': '../../resource/img/finish.png',
             'pull.pullText': '刷新完成',
             'pull.isLoading': false
           })
-        }, 1500)
-      }
+        } else {
+          that.setData({
+            'pull.loading': '/resource/img/finish.png',
+            'pull.pullText': '刷新失败',
+            'pull.isLoading': false
+          })
+        }
+      }, 1500)
     }
   },
 
-  //加载
+
   toload() {
     let current = that.data.current;
-    let pageCount = that.data.pageCount;
-    if (current < pageCount) {
+    let total = that.data.total;
+    if (that.data.orderList.length < total) {
       that.setData({
         'push.isLoading': true,
         'push.pullText': '正在加载',
         'push.loading': '../../resource/img/pull_refresh.gif',
       })
       current++;
+      console.log(current)
       current = String(current);
       console.log(current)
       that.orderListFn(current);
@@ -203,9 +189,9 @@ Page({
           'push.loading': '../../resource/img/finish.png',
         })
       }, 1500)
-    } else {
+    } else if ((current * that.data.pageSize) > total) {
       that.setData({
-        // 'push.isLoading': false,
+        'push.isLoading': false,
         'push.pullText': '- 我也是有底线的 -'
       })
     }

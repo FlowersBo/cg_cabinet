@@ -1,298 +1,158 @@
-// pages/cs/index.js
-let that;
-import * as echarts from '../../component/ec-canvas/echarts';
-// function initChart(chart, data_item) {
-//   // const chart = echarts.init(canvas, null, {
-//   //   width: width,
-//   //   height: height,
-//   //   devicePixelRatio: dpr // new
-//   // });
-//   // canvas.setChart(chart);
-// };
-// 初始化图表
-function initChart(chart,data_item) {
-  var option = {
-    backgroundColor: "#ffffff",
-    color: ["#37A2DA", "#32C5E9", "#67E0E3", "#91F2DE", "#FFDB5C", "#FF9F7F"],
-    title: {
-      show: true,
-      text: "这是标题",
-      subtext: "Sub Title",
-      left: "center",
-      top: "center",
-      textStyle: {
-        fontSize: 30,
-        textBorderColor: "rgba(54, 25, 238, 1)"
-      },
-      subtextStyle: {
-        fontSize: 20
-      },
-    },
-    series: [{
-      label: {
-        normal: {
-          fontSize: 12 //图显示字体大小
-        },
-        lessonLine: {
-          lazyLoad: true
-        }
-      },
-      data: data_item,
-      type: 'pie',
-      radius: '50%',
-      center: ['50%', '50%'],
-      // radius: ['40%', '60%'],//设置环状图
-    }]
-  };
-  chart.setOption(option);
-  return chart;
-};
-
-// 折线图
-function getLineOption(chart) {
-  var option = {
-    title: {
-      text: '营业趋势'
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross',
-      },
-    },
-    toolbox: {
-      show: true,
-      feature: {
-        mark: {
-          show: true
-        },
-        dataView: {
-          show: true,
-          readOnly: false
-        },
-        restore: {
-          show: true
-        },
-        saveAsImage: {
-          show: true
-        }
-      }
-    },
-    legend: {
-      data: ['营业趋势']
-    },
-    grid: {
-      left: '3%',
-      bottom: '3%',
-      containLabel: true
-    },
-    toolbox: {
-      show: true,
-      feature: {
-        mark: {
-          show: true
-        },
-        dataView: {
-          show: true,
-          readOnly: false
-        },
-        magicType: {
-          show: true,
-          type: ['line', 'bar', 'stack', 'tiled']
-        },
-        restore: {
-          show: true
-        },
-        saveAsImage: {
-          show: true
-        }
-      }
-    },
-    calculable: true,
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [{
-      data: [820, 932, 801, 434, 1290, 830, 1320],
-      type: 'line'
-    }]
-    // xAxis: [{
-    //   type: 'category',
-    //   boundaryGap: false,
-    //   // data: this.data.consumeDay,//此处为数组
-    //   axisLabel: {
-    //     // interval: this.data.interval, //x轴间隔多少显示刻度
-    //     interval: 0,
-    //     fontSize: 8,
-    //   }
-    // }],
-    // yAxis: [{
-    //   type: 'value',
-    //   axisLine: {
-    //     show: true
-    //   },
-    //   axisTick: {
-    //     show: true
-    //   },
-    // }],
-    // series: [{
-    //   name: '营业趋势',
-    //   type: 'line',
-    //   smooth: true,
-    //   center: ['100%', '100%'],
-    //   itemStyle: {
-    //     normal: {
-    //       color: '#56cbff',
-    //       fontSize: '80',
-    //       lineStyle: {
-    //         color: '#56cbff'
-    //       },
-    //       areaStyle: {
-    //         color: 'rgb(230,249,252)'
-    //       },
-    //     }
-    //   },
-    //   // data: this.data.consumeAmount,//此处为数组
-    //   data: [1,2,3,4,5,6,7,8],//此处为数组
-    // }]
-  };
-  chart.setOption(option);
-  return chart;
-  // return option;
-};
-
-
+// pages/socks/socks.js
+const app = getApp()
+import * as util from '../../utils/util';
+import * as websocket from '../../utils/websocket.js';
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    openSetting: 'open',
-    ec: {
-      onInit: getLineOption,
-      lazyLoad: true //初始化加载
-    },
-    data_item: [{
-      value: 55,
-      name: '北京'
-    }, {
-      value: 20,
-      name: '武汉'
-    }, {
-      value: 10,
-      name: '杭州'
-    }, {
-      value: 20,
-      name: '广州'
-    }, {
-      value: 38,
-      name: '上海'
-    }]
-  },
-
-  // 模拟请求数据
-  simulateRequest: () => {
-    that.initGraph(that.data.data_item);
-  },
-
-  initGraph: function (data_item) {
-    this.oneComponent.init((canvas, width, height, dpr) => {
-      const chart = echarts.init(canvas, null, {
-        width: width,
-        height: height,
-        devicePixelRatio: dpr // new
-      });
-      chart.on('click', function(handler, context) {
-        // var handlerValue = handler.name + ' :  ' + handler.value
-        var handlerValue = 'handler.name' + ' :  ' + 'handler.value'
-        wx.showToast({
-          title: handlerValue,
-          icon: 'none',
-          duration: 1200,
-          mask: true
-        })
-      });
-      // return chart;
-      // canvas.setChart(chart);
-      // initChart(chart, data_item);
-      //  this.chart = chart;
-      //  return chart;
-    // initChart(chart,data_item);
-    getLineOption(chart);
-    });
-  },
-
-
-
-
-  // 弹窗组件
-  statusNumberFn: function (e) {
-    console.log(e.detail.status);
-    this.setData({
-      status: e.detail.status
-    })
+    newslist: [],
+    userInfo: {},
+    scrollTop: 0,
+    increase: false, //图片添加区域隐藏
+    aniStyle: true, //动画效果
+    message: "",
+    previewImgList: []
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    that = this;
-    // this.mask = this.selectComponent('#mask');
-    this.oneComponent = this.selectComponent('#mychart-dom-bar');
-    // this.mask.util('open');
-    that.simulateRequest();
+  onLoad: function () {
+    var that = this;
+    //	获取所有打开的EventChannel事件
+    const eventChannel = this.getOpenerEventChannel();
+    // 监听 index页面定义的toHome 事件
+    eventChannel.on('toHome', (res) => {
+      console.log(res.data) // my from index page
+    })
+
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo
+      })
+    }
+    //调通接口
+    websocket.connect(this.data.userInfo, function (res) {
+      // console.log(JSON.parse(res.data))
+      var list = []
+      list = that.data.newslist
+      list.push(JSON.parse(res.data))
+      that.setData({
+        newslist: list
+      })
+    })
   },
 
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {},
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  // 页面卸载
+  onUnload() {
+    wx.closeSocket();
+    wx.showToast({
+      title: '连接已断开~',
+      icon: "none",
+      duration: 2000
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  //事件处理函数
+  send: function () {
+    var flag = this
+    if (this.data.message.trim() == "") {
+      wx.showToast({
+        title: '消息不能为空哦~',
+        icon: "none",
+        duration: 2000
+      })
+    } else {
+      setTimeout(function () {
+        flag.setData({
+          increase: false
+        })
+      }, 500)
+      websocket.send('{ "content": "' + this.data.message + '", "date": "' + utils.formatTime(new Date()) + '","type":"text", "nickName": "' + this.data.userInfo.nickName + '", "avatarUrl": "' + this.data.userInfo.avatarUrl + '" }')
+      this.bottom()
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  //监听input值的改变
+  bindChange(res) {
+    this.setData({
+      message: res.detail.value
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  cleanInput() {
+    //button会自动清空，所以不能再次清空而是应该给他设置目前的input值
+    this.setData({
+      message: this.data.message
+    })
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  increase() {
+    this.setData({
+      increase: true,
+      aniStyle: true
+    })
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+  //点击空白隐藏message下选框
+  outbtn() {
+    this.setData({
+      increase: false,
+      aniStyle: true
+    })
+  },
+  //发送图片
+  chooseImage() {
+    var that = this
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePaths = res.tempFilePaths
+        // console.log(tempFilePaths)
+        wx.uploadFile({
+          url: 'wss://www.xxx.cn', //服务器地址
+          filePath: tempFilePaths[0],
+          name: 'file',
+          headers: {
+            'Content-Type': 'form-data'
+          },
+          success: function (res) {
+            if (res.data) {
+              that.setData({
+                increase: false
+              })
+              websocket.send('{"images":"' + res.data + '","date":"' + utils.formatTime(new Date()) + '","type":"image","nickName":"' + that.data.userInfo.nickName + '","avatarUrl":"' + that.data.userInfo.avatarUrl + '"}')
+              that.bottom()
+            }
+          }
+        })
+      }
+    })
+  },
+  //图片预览
+  previewImg(e) {
+    var that = this
+    //必须给对应的wxml的image标签设置data-set=“图片路径”，否则接收不到
+    var res = e.target.dataset.src
+    var list = this.data.previewImgList //页面的图片集合数组
+    //判断res在数组中是否存在，不存在则push到数组中, -1表示res不存在
+    if (list.indexOf(res) == -1) {
+      this.data.previewImgList.push(res)
+    }
+    wx.previewImage({
+      current: res, // 当前显示图片的http链接
+      urls: that.data.previewImgList // 需要预览的图片http链接列表
+    })
+  },
+  //聊天消息始终显示最底端
+  bottom: function () {
+    var query = wx.createSelectorQuery()
+    query.select('#flag').boundingClientRect()
+    query.selectViewport().scrollOffset()
+    query.exec(function (res) {
+      wx.pageScrollTo({
+        scrollTop: res[0].bottom // #the-id节点的下边界坐标
+      })
+      res[1].scrollTop // 显示区域的竖直滚动位置
+    })
+  },
 })

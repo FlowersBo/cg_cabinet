@@ -1,0 +1,26 @@
+<!--pages/login/index.wxml-->
+<cu-custom bgColor="bg-user-color">
+  <view slot="content">晨购智能柜</view>
+</cu-custom>
+<view class="loginWrap">
+  <view class="loginTitle">用户登录</view>
+  <view class="login">
+    <form bindsubmit="formSubmit">
+      <view class="phone-box">
+        <text class="phone">手机号：</text>
+        <input name="phoneNumber" type="number" placeholder="请输入手机号" maxlength="11" class="number"
+          bindinput="bindInputPhoneNumber" />
+      </view>
+
+      <view class="phone-box">
+        <text class="phone">验证码：</text>
+        <!-- placeholder-style="color:#bbb" -->
+        <input name="verificationCode" placeholder="请输入验证码"  maxlength="6" class="number" bindinput="bindInputVerificationCode" />
+        <view bindtap="getVerificationCode" class="getNum {{isRepeatGetNum}}" hover-class="getNum_hover" hover-stay-time="100">
+          {{verificationControlText}}</view>
+      </view>
+
+      <button class="btn" form-type="submit">登录</button>
+    </form>
+  </view>
+</view>

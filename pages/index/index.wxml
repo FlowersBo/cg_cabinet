@@ -1,2 +1,74 @@
-<!--pages/index/index.wxml-->
-<text>pages/index/index.wxml</text>
+<!--index.wxml-->
+<cu-custom bgColor="bg-user-color">
+    <!-- isCustom="true" -->
+    <!-- <view slot="backText">返回</view> -->
+    <view slot="content">报表</view>
+</cu-custom>
+<!-- <view class="nav_title">
+    <view class="nav_tab">
+        <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}" data-index="{{index}}"
+            bindtap="selectedReportGenres">
+            {{item}}</view>
+    </view>
+    <view class="nav_tab nav_tabchild">
+        <view class="{{dateRangeindex==index?'hidden':'show'}}" wx:for="{{info.dateRange[reportGenre]}}" wx:key="index"
+            data-index="{{index}}" bindtap="selectedDateRange">
+            {{item}}
+        </view>
+    </view>
+    <view class="sales">
+        <view class="sales_list" wx:for="{{reportTotal}}" wx:key="index" wx:for-index="key" data-item="item">
+            <view class="quantity"> {{key}}</view>
+            <view class="num">{{item}}</view>
+        </view>
+    </view>
+
+    <block wx:if="{{isShowGraph}}">
+        <view class="container" wx:for="{{graphGenres[chartsTitleGenre].title}}">
+            <view class="tit">{{item}}</view>
+            <ec-canvas canvas-id="mychart-line" xsign="{{ecxsign[chartsTitleGenre]}}" xdata="{{ecDatas[index]}}"
+                ec="{{ ec }}"></ec-canvas>
+        </view>
+    </block>
+
+    <view class="detail">
+        <view class="explain">
+            点位销售明细(<text>{{pointDetaillyDate}}</text>)
+        </view>
+        <view class="point_name">
+            <input confirm-type="search" bindconfirm="bindPointSerch" placeholder="点位名称" />
+            <image src="../../assets/img/fangdajing.png"></image>
+        </view>
+    </view>
+
+    <view class="tabTit box">
+        <view class="flex1" wx:for="{{reportDetail.titles}}" wx:key="type" data-index="{{index}}"
+            bindtap="bindPointSort">
+            <label>
+                <text>{{item}}</text>
+                <image src="{{reportDetail.titleUrls[index]}}" class="coding_flash_image"></image>
+            </label>
+        </view>
+    </view>
+
+    <view class="list">
+        <block wx:for="{{pointsData}}" wx:key="list" wx:for-item="item">
+            <view class="list_item">
+                <view class="info .box">
+                    <view class="title flex1 ">{{item.PointName}}</view>
+                    <view class="price flex1 ">￥{{item.SaleAmount}}</view>
+                    <view class="num flex1 ">{{item.ProductCount}}</view>
+                    <view class="report_details flex1 " bindtap="bindReportDetaill" data-point="{{item}}">
+                        <image src="../../assets/img/baobiao.png" mode="scaleToFill"></image>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </view>
+
+    <view class="button-wrapper">
+        <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="bindLoading">
+            {{loadText}}
+        </button>
+    </view>
+</view> -->

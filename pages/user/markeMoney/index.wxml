@@ -1,0 +1,56 @@
+<!--pages/user/markeMoney/index.wxml-->
+<cu-custom bgColor="bg-user-color" isCustom="true" class="custom">
+  <view slot="backText">返回</view>
+  <view slot="content">分账详情</view>
+</cu-custom>
+<!-- round -->
+<view class="cu-progress striped active" style="position: absolute;top: {{2*customHeight}}rpx;left: 0;width: 100%;">
+  <view class="bg-green" style="width:{{progress}}%;"></view>
+</view>
+<scroll-y class="scroll-view" pull="{{pull}}" push="{{push}}" listLength="{{clueData.length}}"
+  style="position: absolute;top: {{2*customHeight+10}}rpx;bottom: 0;width: 100%;flex: 1;" bindrefresh="refresh"
+  bindtoload="toload">
+  <view class="userWrap">
+    <view class="marketMoneyWrap">
+      <view wx:if="{{AccountSharingProportion.sharing_price}}" class="marketMoney">
+        <view class="addMoney">
+          <view class="addMoney_title">累计销售金额</view>
+          <view class="money">{{AccountSharingProportion.sum_price}}元</view>
+        </view>
+        <view class="addMoney">
+          <view class="addMoney_title">累计分账金额</view>
+          <view class="money">{{AccountSharingProportion.sharing_price}}元</view>
+        </view>
+      </view>
+    </view>
+    <view class="sub_account">
+      <view class="cu-bar bg-white">
+        <view class="action sub-title">
+          <text class="text-xl text-bold text-blue">分账明细</text>
+          <text class="text-ABC text-blue">particulars</text>
+        </view>
+      </view>
+      <!-- <view class="sub_accountTitle">
+        <view class="box"></view>
+        <view class="title">分账明细</view>
+      </view> -->
+      <view class="sub_accountListWrap">
+        <view class="tabTit publicStyle">
+          <view class="flex1" wx:for="{{tabTit}}" wx:key='index'>{{item}}</view>
+        </view>
+        <view class="sub_accountList">
+          <view class="sub_accountList_item publicStyle" wx:for="{{sub_accountList}}" wx:key="index">
+            <view class="flex1">{{item.date}}</view>
+            <view class="flex1">{{item.price}}</view>
+            <view class="flex1">{{item.sub_account}}</view>
+            <view class="flex1 {{item.status==='已转账'?'colorStyle':''}}">{{item.status}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-y>
+<view class="{{isFlag?'iconWrap':'iconNone'}}">
+  <icon class="iconfont icon iconzanwushuju"></icon>
+  <text class="icon_text">暂无数据，亲亲稍后再来吧~~</text>
+</view>

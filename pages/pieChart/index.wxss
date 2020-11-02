@@ -1,0 +1,7 @@
+/* pages/cs/index.wxss */
+
+.ec_canvas{
+  width: 100%;
+  height: 800rpx;
+  background-color: #fff;
+}

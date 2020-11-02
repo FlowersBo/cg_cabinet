@@ -1,0 +1,53 @@
+<!--pages/user/index.wxml-->
+<cu-custom bgColor="bg-user-color" class="custom">
+  <view slot="content">我的</view>
+</cu-custom>
+<scroll-y class="scroll-view" pull="{{pull}}" push="{{push}}" listLength="{{clueData.length}}"
+  style="position: absolute;top: {{2*customHeight}}rpx;bottom: 0;width: 100%;flex: 1;" bindrefresh="refresh"
+  bindtoload="toload">
+  <view class="userWrap">
+    <view class="user">
+      <view class="user_logo">
+        <image mode="aspectFit" src="{{userInfo.logoUrl}}" data-url='{{userInfo.logoUrl}}' bindtap="topic_preview">
+        </image>
+      </view>
+      <view class="userInfo">
+        <view class="user_name">{{userInfo.agencyname?userInfo.agencyname:userInfo.estateName}}</view>
+        <view class="user_phone">{{userInfo.mobile?userInfo.mobile:userInfo.phone}}</view>
+      </view>
+    </view>
+    <view class="marketMoneyWrap">
+      <view wx:if="{{AccountSharingProportion.sharing_price}}" class="marketMoney" bindtap="toMarkeMoney">
+        <view class="addMoney">
+          <view class="addMoney_title">累计销售金额</view>
+          <view class="money">{{AccountSharingProportion.sum_price}}元</view>
+        </view>
+        <view class="addMoney">
+          <view class="addMoney_title">累计分账金额</view>
+          <view class="money">{{AccountSharingProportion.sharing_price}}元</view>
+        </view>
+      </view>
+      <view class="phone" data-phone="{{userInfo.serviceTels}}" bindtap="openPhone">
+        <view class="phoneNumber">联系运营商：{{userInfo.serviceTels?userInfo.serviceTels:userInfo.serviceTel}}</view>
+        <view>
+          <icon class="iconfont icondianhua"></icon>
+          <icon class="iconfont iconperson-right"></icon>
+        </view>
+      </view>
+      <view class="userBtn" hover-class="getNum_hover" hover-stay-time="100" bindtap="bindLogOut">退出登录</view>
+    </view>
+    <mask id="mask" openSetting="{{openSetting}}" bind:statusNumber="statusNumberFn">
+      <view slot='isTitle'>提示</view>
+      <view slot='isContent'>您确认要退出登录吗？</view>
+    </mask>
+    <view class='plane1' animation="{{slide_up1}}">
+      <image src='/resource/img/plane1.png'></image>
+    </view>
+    <view class='plane2' animation="{{slide_up2}}">
+      <image src='/resource/img/plane2.png'></image>
+    </view>
+    <view class='plane3' animation="{{slide_up3}}">
+      <image src='/resource/img/plane3.png'></image>
+    </view>
+  </view>
+</scroll-y>

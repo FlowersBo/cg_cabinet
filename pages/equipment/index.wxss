@@ -1,0 +1,111 @@
+/* pages/equipment/index.wxss */
+/* 日期 */
+.con {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.con .device {
+  width: 400rpx;
+  height: 60rpx;
+  font-size: 28rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+  position: relative;
+}
+
+.device input {
+  width: 100%;
+  height: 100%;
+  border-radius: 30rpx;
+  border: 1px solid #c9c9c9;
+  background: #f8f8f8;
+  padding: 0 20rpx;
+}
+
+.device icon {
+  position: absolute;
+  right: 16rpx;
+  top: -4rpx;
+}
+
+.equipmentWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 34rpx;
+}
+
+.equipment {
+  width: 720rpx;
+  height: 340rpx;
+  border-radius: 10rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+  padding: 10rpx 17rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.equipment_child {
+  height: 72rpx;
+  line-height: 72rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equipment_child:last-child {
+  padding-right: 80rpx;
+}
+
+.equipment_item {
+  height: 72rpx;
+  line-height: 72rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.icon {
+  color: #63CC0E;
+}
+
+.iconxinhao {
+  margin-right: 30rpx;
+}
+
+.iconyuanquan1 {
+  font-size: 44rpx;
+}
+
+
+.isStatus {
+  color: #EE0000;
+}
+
+/* noData */
+/* .iconWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 150rpx;
+}
+
+.iconNone {
+  display: none;
+}
+
+.mask_icon {
+  font-size: 400rpx;
+  color: #3C77E4;
+}
+
+.icon_text {
+  color: #8a9219;
+} */

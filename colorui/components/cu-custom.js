@@ -51,7 +51,7 @@ Component({
     },
     toHome(){
       wx.reLaunch({
-        url: '/pages/destination/index',
+        url: '/pages/index/index',
       })
     }
   }

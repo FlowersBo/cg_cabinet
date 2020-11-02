@@ -1,1 +1,229 @@
-/* pages/index/index.wxss */
+/* tab切换 */
+.nav_title {
+  padding: 20rpx 20rpx 0;
+  box-sizing: border-box;
+}
+
+.nav_tab {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  color: #333;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.nav_tabchild {
+  height: 70rpx;
+  line-height: 70rpx;
+  margin: 20rpx 0;
+}
+
+.show {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333333;
+  text-align: center;
+  background: #f8f8f8;
+}
+
+.hidden {
+  flex: 1;
+  font-size: 28rpx;
+  text-align: center;
+  color: #fff;
+  background: #0042BB;
+}
+
+.nav_underline {
+  width: 54rpx;
+  height: 6rpx;
+  margin-top: -10rpx;
+  margin-left: 70rpx;
+  border-radius: 8rpx;
+  background: #ef9ba8;
+}
+
+/* 销售额 */
+.sales {
+  display: flex;
+  border-radius: 10rpx;
+  background: #f8f8f8;
+  overflow: hidden;
+}
+
+.sales_list {
+  flex: 4;
+  width: 200rpx;
+  color: #333;
+  margin: 20rpx 0;
+  text-align: center;
+  border-right: 1px solid #dedede;
+}
+
+.sales_list:last-child {
+  border-right: none;
+}
+
+.quantity {
+  font-size: 30rpx;
+  padding-bottom: 6rpx;
+}
+
+.num {
+  font-size: 30rpx;
+}
+
+/* 点位明细 */
+.detail {
+  margin: 20rpx 0;
+  padding: 15rpx;
+  border-radius: 10rpx;
+  background: #f8f8f8;
+}
+
+.explain {
+  display: inline-block;
+  font-size: 30rpx;
+}
+
+.point_name {
+  position: relative;
+  float: right;
+  width: 258rpx;
+}
+
+.point_name input {
+  font-size: 26rpx;
+  padding-left: 20rpx;
+  border: 1px solid #c9c9c9;
+  border-radius: 100rpx;
+  box-sizing: border-box;
+}
+
+.point_name image {
+  position: absolute;
+  right: 15rpx;
+  bottom: 9rpx;
+  width: 30rpx;
+  height: 30rpx;
+  z-index: 3;
+}
+
+/* canvas */
+
+.container {
+  width: 100%;
+  height: 350rpx;
+  background: #f8f8f8;
+  text-align: center;
+  margin: 20rpx auto;
+  border-radius: 10rpx;
+  overflow: hidden;
+
+}
+
+.container .tit {
+  height: 60rpx;
+  line-height: 61rpx;
+  font-size: 30rpx;
+  background: #E8E8E8;
+
+}
+
+ec-canvas {
+  width: 100%;
+  height: 300rpx;
+}
+
+canvas {
+  width: 100%;
+  height: 300rpx;
+}
+
+/* 列表 */
+.point_list {
+  position: relative;
+}
+
+.clear {
+  clear: both;
+  overflow: hidden;
+}
+
+.tabTit {
+  width: 710rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: .2rem;
+  z-index: 1;
+  text-align: center;
+  border-bottom: solid 1px #c9c9c9;
+  background: #fff;
+}
+
+
+.tabTit .coding_flash_image {
+  width: 14rpx;
+  height: 24rpx;
+  margin-left: .066667rem;
+}
+
+.flex1 {
+  font-size: 30rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+}
+
+
+
+
+
+.flex1:first-child,
+.list .list_item .info .title {
+  width: 263rpx;
+}
+
+.flex1:nth-child(2),
+.list .list_item .info .price {
+  width: 200rpx;
+}
+
+.flex1:nth-child(3),
+.list .list_item .info .num {
+  width: 175rpx;
+}
+
+.flex1:last-child,
+.list .list_item .info .report_details {
+  width: 65rpx;
+}
+
+.list .list_item .flex1:last-child image {
+  width: 32rpx;
+  height: 28rpx;
+}
+
+.tabTit .flex1:first-child image,
+.tabTit .flex1:last-child image {
+  display: none;
+}
+
+/*弹性盒模型*/
+.box {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+
+.list .list_item {
+  padding: 20rpx 0;
+  text-align: center;
+  border-bottom: 1px solid #E8E8E8;
+}

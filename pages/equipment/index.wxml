@@ -1,0 +1,35 @@
+<!--pages/equipment/index.wxml-->
+<cu-custom bgColor="bg-user-color" class="custom">
+  <view slot="content">设备</view>
+</cu-custom>
+<scroll-y class="scroll-view" pull="{{pull}}" push="{{push}}" listLength="{{clueData.length}}"
+  style="position: absolute;top: {{2*customHeight}}rpx;bottom: 0;width: 100%;flex: 1;" bindrefresh="refresh"
+  bindtoload="toload">
+  <view class="con">
+    <view class="device" title="设备" wx:if="{{total}}">
+      <input type="text" confirm-type="search" placeholder="点位名称/设备编号" value="" bindconfirm="bindPointSerch" />
+      <icon class="iconfont iconfangdajing"></icon>
+    </view>
+  </view>
+  <view class="equipmentWrap">
+    <block wx:for="{{deviceList}}" wx:key="index">
+      <view class="equipment">
+        <view class="equipment_child">
+          <view class="equipment_item">设备编号：{{item.deviceid}}</view>
+          <view class="equipment_signal">
+            <icon class="iconfont icon iconxinhao {{item.isonline==='1'?'':'isStatus'}}"></icon>
+            <icon class="iconfont icon iconyuanquan1 {{item.isbad==='1'?'':'isStatus'}}"></icon>
+          </view>
+        </view>
+        <view class="equipment_item">点位名称：{{item.pointname}}</view>
+        <view class="equipment_item">点位地址：{{item.pointaddress}}</view>
+        <view class="equipment_child">
+          <view class="equipment_item">格口数量：总计：{{item.pointname}}</view>
+          <view class="equipment_item">使用中：{{item.pointname}}</view>
+          <view class="equipment_item">空闲：{{item.pointname}}</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</scroll-y>
+<noData isFlag="{{isFlag}}"></noData>

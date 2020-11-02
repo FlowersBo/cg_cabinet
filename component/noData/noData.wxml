@@ -1,0 +1,5 @@
+<!--component/noData/noData.wxml-->
+<view class="{{isFlag?'iconWrap':'iconNone'}}">
+  <icon class="iconfont mask_icon iconzanwushuju"></icon>
+  <text class="icon_text">暂无数据，亲亲稍后再来吧~~</text>
+</view>
